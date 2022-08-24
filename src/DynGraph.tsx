@@ -1,5 +1,7 @@
-import ForceGraph3D, { GraphData, LinkObject } from "react-force-graph-3d";
+import ReactDOM from "react-dom";
+import ForceGraph3D, { GraphData, LinkObject, NodeObject } from "react-force-graph-3d";
 import { useWindowSize } from "usehooks-ts";
+import * as ReactDOMServer from "react-dom/server";
 
 //TODO wtf
 //Turns a link into a tuple of [sourceID, targetID]
@@ -63,6 +65,30 @@ function getCurveAndRotation(link: LinkObject, i: number, allLinks: Array<string
 	return { rot: rot, curve: curve };
 }
 
+const NodeLabel = (props: { node: any }) => {
+
+	return (
+		<div className="nodeLabel">
+			<b>{props.node.name}</b>
+            <p/>
+            {props.node.id}: {props.node.desc}.
+		</div>
+	);
+};
+
+const LinkLabel = (props: { link: any, nodeList: Array<NodeObject> }) => {
+
+    // let [source, target]: any = LinkToNodes(props.link, props.nodeList);
+    // console.log
+	return (
+		<div className="linkLabel">
+			<b>{props.link.source.name}⟶{props.link.target.name}</b><p/>
+            <b>Site: {props.link.substratePhosphosite} {props.link.effectCode !== "" && <>Effect: {props.link.effectCode}</>}</b><p/>
+            {props.link.fullPhosphorylationEffect}.
+		</div>
+	);
+};
+
 const DynamicGraph = (props: {
 	graphData: GraphData;
 	showSelfLoops: boolean;
@@ -84,12 +110,16 @@ const DynamicGraph = (props: {
 	};
 
 	const { width, height } = useWindowSize();
-
+	var div = document.createElement("div");
 	return (
 		<ForceGraph3D
+			//Basic Props
 			graphData={props.graphData}
 			width={width}
 			height={height}
+			nodeLabel={(n: any) => ReactDOMServer.renderToString(<NodeLabel node={n} />)}
+			//Link props
+            linkLabel={(l: any) => ReactDOMServer.renderToString(<LinkLabel link={l} nodeList={props.graphData.nodes} />)}
 			linkDirectionalArrowLength={3.5}
 			linkDirectionalArrowRelPos={1}
 			linkCurvature={(l: LinkObject) => {

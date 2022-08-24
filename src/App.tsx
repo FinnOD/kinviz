@@ -1,32 +1,77 @@
-import React, { useState, useEffect } from "react";
-import ForceGraph3D from "react-force-graph-3d";
-import './App.css';
+import React, { useState } from "react";
+import { GraphData } from "react-force-graph-3d";
+import { MenuOutlined } from "@ant-design/icons";
+import { Button, Drawer, Slider, Switch } from "antd";
+
+import "./App.css";
+import DynamicGraph from "./DynGraph";
 
 const networkJSON = require("./data/networkKinasesSmall.json");
-// const networkJSON = require("./data/example2.json");
-
-const DynamicGraph = () => {
-  const [data, setData] = useState(networkJSON);
-  
-  return <ForceGraph3D
-    graphData={data}
-    linkCurvature={0.4}
-  />;
-};
-
+// const networkJSON = require("./data/example.json");
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-      </header>
-      <div className="main">
-        <div className="maingraph">
-          <DynamicGraph />
-        </div>
-      </div>
-    </div>
-  );
+	// Graph
+	// eslint-disable-next-line
+	const [data, setData] = useState<GraphData>(networkJSON);
+
+	//Drawer
+	const [visible, setVisible] = useState(false);
+	const showDrawer = () => {
+		setVisible(true);
+	};
+	const onClose = () => {
+		setVisible(false);
+	};
+
+	// ----- Drawer Children ------
+
+	// Curve amount
+	const percentFormatter = (value: number | undefined) => `${value ?? ""}%`;
+
+	const [curveAmount, setCurve] = useState(50);
+	const onLinkCurveSlide = (val: number | undefined) => {
+		if (val !== undefined) setCurve(val);
+	};
+
+	// Show self loops
+	const [showSelfLoops, setShowSelfLoops] = useState(true);
+	const onSelfLoopsChange = (checked: boolean) => {
+		setShowSelfLoops(checked);
+	};
+
+	return (
+		<div className="App">
+			<header className="App-header"></header>
+			<div className="main">
+				<div className="btn">
+					<Button
+						type="primary"
+						size="large"
+						icon={<MenuOutlined />}
+						onClick={showDrawer}
+					/>
+				</div>
+				<div className="maingraph">
+					<DynamicGraph
+						graphData={data}
+						showSelfLoops={showSelfLoops}
+						curveAmount={curveAmount}
+					/>
+				</div>
+			</div>
+			<Drawer title="Basic Drawer" placement="right" onClose={onClose} visible={visible}>
+				<p>Link Curvature</p>
+				<Slider
+					onChange={onLinkCurveSlide}
+					defaultValue={curveAmount}
+					tipFormatter={percentFormatter}
+				/>
+				<p>
+					Show self-loops <Switch defaultChecked onChange={onSelfLoopsChange} />
+				</p>
+			</Drawer>
+		</div>
+	);
 }
 
 export default App;
