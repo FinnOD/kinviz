@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/kinviz/static/css/main.ea90ebbc.css",
+    "main.js": "/kinviz/static/js/main.3c169f46.js",
+    "static/js/787.45aa9550.chunk.js": "/kinviz/static/js/787.45aa9550.chunk.js",
+    "index.html": "/kinviz/index.html",
+    "main.ea90ebbc.css.map": "/kinviz/static/css/main.ea90ebbc.css.map",
+    "main.3c169f46.js.map": "/kinviz/static/js/main.3c169f46.js.map",
+    "787.45aa9550.chunk.js.map": "/kinviz/static/js/787.45aa9550.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ea90ebbc.css",
+    "static/js/main.3c169f46.js"
+  ]
+}
