@@ -1,19 +1,47 @@
 import React, { useState } from "react";
 import { GraphData } from "react-force-graph-3d";
 import { MenuOutlined } from "@ant-design/icons";
-import { Button, Drawer, Slider, Switch } from "antd";
-
+import { Button, Drawer, Slider, Switch, Select } from "antd";
+//user
 import "./App.css";
 import DynamicGraph from "./DynGraph";
+import networkKinasesSmall from "./data/networkKinasesSmall.json"
+import networkKinasesOnly from "./data/networkKinasesOnly.json"
+import network from "./data/network.json"
+import example from "./data/example.json"
+import example2 from "./data/example2.json"
 
-const networkJSON = require("./data/networkKinasesSmall.json");
-// const networkJSON = require("./data/example.json");
+const { Option } = Select;
+
+const networks: Record<string, GraphData> = {
+	"Kinase Subset": networkKinasesSmall,
+	"All Kinases": networkKinasesOnly,
+	"Full network": network,
+	"Example 1": example,
+	"Example 2": example2,
+};
+
+const NetworkSelect = (props: {
+	selectedNetworkName: string;
+	netDict: any;
+	handleNetworkChange: any;
+}) => {
+	return (
+		<Select
+			defaultValue={props.selectedNetworkName}
+			style={{ width: '100%' }}
+			onChange={props.handleNetworkChange}
+		>
+			{Object.keys(props.netDict).map((key, index) => (
+				<Option key={key} value={key}>
+					{key}
+				</Option>
+			))}
+		</Select>
+	);
+};
 
 function App() {
-	// Graph
-	// eslint-disable-next-line
-	const [data, setData] = useState<GraphData>(networkJSON);
-
 	//Drawer
 	const [visible, setVisible] = useState(false);
 	const showDrawer = () => {
@@ -39,6 +67,14 @@ function App() {
 		setShowSelfLoops(checked);
 	};
 
+	// Network select
+	// Use the first network in the dict.
+	// eslint-disable-next-line
+	const [selectedNetworkName, setSelectedNetworkName] = useState(Object.keys(networks)[0]);
+
+	// Graph
+	const [data, setData] = useState<GraphData>(networks[selectedNetworkName]);
+
 	return (
 		<div className="App">
 			<header className="App-header"></header>
@@ -59,16 +95,24 @@ function App() {
 					/>
 				</div>
 			</div>
-			<Drawer title="Basic Drawer" placement="right" onClose={onClose} visible={visible}>
+			<Drawer title="Network Options" placement="right" onClose={onClose} visible={visible}>
 				<p>Link Curvature</p>
 				<Slider
 					onChange={onLinkCurveSlide}
 					defaultValue={curveAmount}
 					tipFormatter={percentFormatter}
 				/>
+				<br />
 				<p>
-					Show self-loops <Switch defaultChecked onChange={onSelfLoopsChange} />
+					Show self-loops <Switch defaultChecked onChange={onSelfLoopsChange} style={{float: 'right'}}/>
 				</p>
+
+				<br />
+				<NetworkSelect
+					selectedNetworkName={selectedNetworkName}
+					netDict={networks}
+					handleNetworkChange={(e: any) => setData(networks[e])}
+				></NetworkSelect>
 			</Drawer>
 		</div>
 	);
