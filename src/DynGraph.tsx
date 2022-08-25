@@ -1,9 +1,8 @@
-import React, { useCallback, useRef, useEffect } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import ForceGraph3D, { GraphData, LinkObject, NodeObject } from "react-force-graph-3d";
 import { useWindowSize } from "usehooks-ts";
 import * as ReactDOMServer from "react-dom/server";
 
-// console.log(typeof ForceGraphMethods);
 //TODO wtf
 //Turns a link into a tuple of [sourceID, targetID]
 function coerceLink(link: LinkObject): [string, string] {
@@ -116,7 +115,8 @@ const DynamicGraph = (props: {
 		},
 		[fgRef]
 	);
-
+	
+	// Handle graph change and calculate edge curve, rotation and visiblity
 	const attrs = useRef<any>();
 	useEffect(() => {
 		const allLinks = props.graphData.links.map((l) => linkID(l));
@@ -135,6 +135,9 @@ const DynamicGraph = (props: {
 		return (isFirstLink || link.source === link.target) && canVis;
 	};
 
+	const [hoveredNode, setHoveredNode] = useState<NodeObject | null>(null);
+	const [hoveredLink, setHoveredLink] = useState<LinkObject | null>(null);
+
 	const { width, height } = useWindowSize();
 
 	return (
@@ -147,6 +150,8 @@ const DynamicGraph = (props: {
 			//Node props
 			nodeLabel={(n: any) => ReactDOMServer.renderToString(<NodeLabel node={n} />)}
 			onNodeClick={handleNodeClick}
+			onNodeHover={(n: NodeObject | null) => setHoveredNode(n)}
+			nodeColor={(n: NodeObject | null) => (n === hoveredNode)? 'red': 'yellow'}
 			//Link props
 			linkLabel={(l: any) =>
 				ReactDOMServer.renderToString(
@@ -154,6 +159,8 @@ const DynamicGraph = (props: {
 				)
 			}
 			// linkHoverPrecision={}
+			onLinkHover={(l: LinkObject | null) => setHoveredLink(l)}
+			linkColor={(l: LinkObject | null) => (l === hoveredLink)? 'red': 'white'}
 			linkDirectionalArrowLength={3.5}
 			linkDirectionalArrowRelPos={1}
 			linkCurvature={(l: LinkObject) => {
