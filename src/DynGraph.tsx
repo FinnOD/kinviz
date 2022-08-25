@@ -1,7 +1,33 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
-import ForceGraph3D, { GraphData, LinkObject, NodeObject } from "react-force-graph-3d";
+import ForceGraph3D from "react-force-graph-3d";
 import { useWindowSize } from "usehooks-ts";
 import * as ReactDOMServer from "react-dom/server";
+
+import { FCData, FCEntry } from "./UploadComponent";
+
+export type NodeObject = object & {
+	id?: string | number;
+	x?: number;
+	y?: number;
+	z?: number;
+	vx?: number;
+	vy?: number;
+	vz?: number;
+	fx?: number;
+	fy?: number;
+	fz?: number;
+};
+
+export type LinkObject = object & {
+	source?: string | number | NodeObject;
+	target?: string | number | NodeObject;
+	substratePhosphosite?: string;
+};
+
+export interface MyGraphData {
+	nodes: NodeObject[];
+	links: LinkObject[];
+}
 
 //TODO wtf
 //Turns a link into a tuple of [sourceID, targetID]
@@ -75,28 +101,41 @@ const NodeLabel = (props: { node: any }) => {
 	);
 };
 
-const LinkLabel = (props: { link: any; nodeList: Array<NodeObject> }) => {
+const LinkLabel = (props: { link: any; nodeList: Array<NodeObject>, linkAttr: any}) => {
+
 	return (
 		<div className="linkLabel">
 			<b>
+				
 				{props.link.source.name} ⟶ {props.link.target.name}
-			</b>
-			<p />
-			<b>
+				<br/>
+				{props.linkAttr.fc !== undefined && <>FC: {Math.round((props?.linkAttr?.fc + Number.EPSILON) * 100) / 100}</>}
+				<br/>
 				Site: {props.link.substratePhosphosite}{" "}
 				{props.link.effectCode !== "" && <>Effect: {props.link.effectCode}</>}
 			</b>
 			<p />
-			{props.link.fullPhosphorylationEffect}.
+			{props.link.fullPhosphorylationEffect}
 		</div>
 	);
 };
 
+type LinkAttrs = Array<{
+	index: number;
+	curve: number;
+	rot: number;
+	firstLink: boolean;
+	fc?: number;
+	err?: number;
+}>;
+
 const DynamicGraph = (props: {
-	graphData: GraphData;
+	graphData: MyGraphData;
 	showSelfLoops: boolean;
 	curveAmount: number;
+	fcData: FCData | undefined;
 }) => {
+	// console.log(props.fcData);
 	//Node focus magic
 	const fgRef = useRef<any>();
 	const handleNodeClick = useCallback(
@@ -115,9 +154,9 @@ const DynamicGraph = (props: {
 		},
 		[fgRef]
 	);
-	
+
 	// Handle graph change and calculate edge curve, rotation and visiblity
-	const attrs = useRef<any>();
+	const attrs = useRef<LinkAttrs>();
 	useEffect(() => {
 		const allLinks = props.graphData.links.map((l) => linkID(l));
 
@@ -128,6 +167,40 @@ const DynamicGraph = (props: {
 
 		attrs.current = arrayAttrs;
 	}, [props.graphData]);
+
+	// Handle fcData input and removal
+	useEffect(() => {
+		if (
+			attrs.current === undefined ||
+			props.graphData === undefined ||
+			props.fcData === undefined
+		)
+			return;
+
+		
+		let panSpecificFirst = props.fcData.sort((x, y) =>
+			x.site === y.site ? 0 : x.site === "Pan-specific" ? -1 : 1
+		);
+
+		console.log('inloop')
+		let arrayAttrs = attrs.current.map((l) => {
+			let tgt:any = props.graphData.links[l.index].target;
+			let site = props.graphData.links[l.index].substratePhosphosite;
+			let foundFC: FCEntry | undefined = panSpecificFirst
+				.slice()
+				// .reverse()
+				.find((fcEntry) => fcEntry.targetid === tgt.id);
+			let betterMatch: FCEntry | undefined = panSpecificFirst
+				.slice()
+				// .reverse()
+				.find((fcEntry) => fcEntry.targetid === tgt.id && fcEntry.site === site);
+			if (betterMatch !== undefined) foundFC = betterMatch;
+		
+			return { fc: foundFC?.fc, err: foundFC?.err, ...l };
+		});
+
+		attrs.current = arrayAttrs;
+	}, [props.fcData, props.graphData]);
 
 	const isLinkVisible = (link: LinkObject, isFirstLink: boolean) => {
 		let canVis = link.source !== link.target || props.showSelfLoops;
@@ -143,6 +216,7 @@ const DynamicGraph = (props: {
 	return (
 		<ForceGraph3D
 			//Basic Props
+			backgroundColor="#0f1320"
 			graphData={props.graphData}
 			ref={fgRef}
 			width={width}
@@ -151,29 +225,67 @@ const DynamicGraph = (props: {
 			nodeLabel={(n: any) => ReactDOMServer.renderToString(<NodeLabel node={n} />)}
 			onNodeClick={handleNodeClick}
 			onNodeHover={(n: NodeObject | null) => setHoveredNode(n)}
-			nodeColor={(n: NodeObject | null) => (n === hoveredNode)? 'red': 'yellow'}
+			nodeColor={(n: NodeObject | null) => (n === hoveredNode ? "#FF964D" : "#F0B648")}
 			//Link props
-			linkLabel={(l: any) =>
-				ReactDOMServer.renderToString(
-					<LinkLabel link={l} nodeList={props.graphData.nodes} />
-				)
+			linkLabel={(l: any) => {
+				let outAttr = undefined;
+				if(attrs.current  !== undefined)
+					outAttr = attrs.current[props.graphData.links.indexOf(l)];
+
+				return ReactDOMServer.renderToString(
+					<LinkLabel link={l} linkAttr={outAttr} nodeList={props.graphData.nodes} />
+				)}
 			}
-			// linkHoverPrecision={}
+			linkHoverPrecision={5}
+			linkWidth={(l: LinkObject) => {
+				if (attrs.current === undefined) return 2;
+				let p = attrs.current[props.graphData.links.indexOf(l)].fc?? 0.2;
+				return Math.max(0.01, 2*Math.abs(p));
+			}}
 			onLinkHover={(l: LinkObject | null) => setHoveredLink(l)}
-			linkColor={(l: LinkObject | null) => (l === hoveredLink)? 'red': 'white'}
+			linkColor={(l: LinkObject) => {
+				let hovCol = (l === hoveredLink ? "#FF964D" : "#9DAABC")
+				if (attrs.current === undefined)
+					return hovCol;
+				let fc = attrs.current[props.graphData.links.indexOf(l)].fc;
+				if(fc === undefined)
+					return hovCol;
+				return (l === hoveredLink) ? '#F0B648' : (fc > 0)? '#FF964D' : '#2A729A';
+			}}
 			linkDirectionalArrowLength={3.5}
 			linkDirectionalArrowRelPos={1}
+			linkDirectionalParticles=
+				{(l: LinkObject) => {
+					if (attrs.current === undefined) return 0;
+					let p = attrs.current[props.graphData.links.indexOf(l)].fc?? 0;
+					if(p ===0 )return 0;
+					return Math.max(0, 3+p);
+				}}
+			
 			linkCurvature={(l: LinkObject) => {
+				if (attrs.current === undefined) return props.curveAmount / 100;
 				let c = attrs.current[props.graphData.links.indexOf(l)].curve;
 				c = Math.max((c * props.curveAmount) / 100, l.source !== l.target ? 0 : 0.2);
 				return c;
 			}}
-			linkCurveRotation={(l: LinkObject) =>
-				attrs.current[props.graphData.links.indexOf(l)].rot
-			}
-			linkVisibility={(l: LinkObject) =>
-				isLinkVisible(l, attrs.current[props.graphData.links.indexOf(l)].firstLink)
-			}
+			linkCurveRotation={(l: LinkObject) => {
+				if (attrs.current === undefined) return 0;
+				return attrs.current[props.graphData.links.indexOf(l)].rot;
+			}}
+			linkVisibility={(l: LinkObject) => {
+				if (attrs.current === undefined) return true;
+				let ats = attrs.current[props.graphData.links.indexOf(l)]
+
+				return isLinkVisible(l, ats.firstLink);// && (ats.fc !== undefined);
+			}}
+			linkOpacity={0.5}
+				// if (attrs.current === undefined)  0.2;
+				// let ats = attrs.current[props.graphData.links.indexOf(l)]
+
+				// if(ats.fc === undefined)
+				// return 0.2;
+				// return 1;//Math.abs(ats.fc);
+			
 		/>
 	);
 };
