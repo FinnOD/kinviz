@@ -1,7 +1,10 @@
-import ForceGraph3D, { GraphData, LinkObject, NodeObject } from "react-force-graph-3d";
+import React, { useCallback, useRef } from "react";
+import ForceGraph3D, {GraphData, LinkObject, NodeObject } from "react-force-graph-3d";
 import { useWindowSize } from "usehooks-ts";
 import * as ReactDOMServer from "react-dom/server";
 
+
+// console.log(typeof ForceGraphMethods);
 //TODO wtf
 //Turns a link into a tuple of [sourceID, targetID]
 function coerceLink(link: LinkObject): [string, string] {
@@ -64,6 +67,7 @@ function getCurveAndRotation(link: LinkObject, i: number, allLinks: Array<string
 	return { rot: rot, curve: curve };
 }
 
+//Components TODO? new file
 const NodeLabel = (props: { node: any }) => {
 	return (
 		<div className="nodeLabel">
@@ -96,6 +100,7 @@ const DynamicGraph = (props: {
 	showSelfLoops: boolean;
 	curveAmount: number;
 }) => {
+	
 	const allLinksDirectional = props.graphData.links.map((l) => linkIDUnsorted(l));
 	const allLinks = props.graphData.links.map((l) => linkID(l));
 
@@ -110,16 +115,37 @@ const DynamicGraph = (props: {
 
 		return (numBefore === 0 || link.source === link.target) && canVis; //(numMatches === 1) ||;
 	};
+	
+	const fgRef = useRef<any>();
+	const handleNodeClick = useCallback(node => {
+
+		if(fgRef.current === undefined)
+			return;
+
+		// Aim at node from outside it
+		const distance = 40;
+		const distRatio = 2 + distance/Math.hypot(node.x, node.y, node.z);
+
+
+		fgRef.current.cameraPosition(
+		  { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, // new position
+		  node, // lookAt ({ x, y, z })
+		  3000  // ms transition duration
+		);
+	  }, [fgRef]);
 
 	const { width, height } = useWindowSize();
-
+	  
 	return (
 		<ForceGraph3D
 			//Basic Props
 			graphData={props.graphData}
+			ref={fgRef}
 			width={width}
 			height={height}
+			//Node props
 			nodeLabel={(n: any) => ReactDOMServer.renderToString(<NodeLabel node={n} />)}
+			onNodeClick={handleNodeClick}
 			//Link props
 			linkLabel={(l: any) =>
 				ReactDOMServer.renderToString(

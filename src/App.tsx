@@ -1,45 +1,29 @@
 import React, { useState } from "react";
 import { GraphData } from "react-force-graph-3d";
 import { MenuOutlined } from "@ant-design/icons";
-import { Button, Drawer, Slider, Switch, Select } from "antd";
+import { Button, Drawer, Slider, Switch} from "antd";
 //user
 import "./App.css";
 import DynamicGraph from "./DynGraph";
+import NetworkSelect from "./NetworkSelect"
 import networkKinasesSmall from "./data/networkKinasesSmall.json"
 import networkKinasesOnly from "./data/networkKinasesOnly.json"
 import network from "./data/network.json"
 import example from "./data/example.json"
 import example2 from "./data/example2.json"
 
-const { Option } = Select;
+
 
 const networks: Record<string, GraphData> = {
 	"Kinase Subset": networkKinasesSmall,
 	"All Kinases": networkKinasesOnly,
+  // @ts-ignore network file is too large and compiler throws an error
 	"Full network": network,
 	"Example 1": example,
 	"Example 2": example2,
 };
 
-const NetworkSelect = (props: {
-	selectedNetworkName: string;
-	netDict: any;
-	handleNetworkChange: any;
-}) => {
-	return (
-		<Select
-			defaultValue={props.selectedNetworkName}
-			style={{ width: '100%' }}
-			onChange={props.handleNetworkChange}
-		>
-			{Object.keys(props.netDict).map((key, index) => (
-				<Option key={key} value={key}>
-					{key}
-				</Option>
-			))}
-		</Select>
-	);
-};
+
 
 function App() {
 	//Drawer
@@ -112,7 +96,7 @@ function App() {
 				<NetworkSelect
 					selectedNetworkName={selectedNetworkName}
 					netDict={networks}
-					handleNetworkChange={(e: any) => setData(networks[e])}
+					handleNetworkChange={(selectedVal: string) => setData(networks[selectedVal])}
 				></NetworkSelect>
 			</Drawer>
 		</div>
