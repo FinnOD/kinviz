@@ -1,8 +1,7 @@
-import React, { useCallback, useRef } from "react";
-import ForceGraph3D, {GraphData, LinkObject, NodeObject } from "react-force-graph-3d";
+import React, { useCallback, useRef, useEffect } from "react";
+import ForceGraph3D, { GraphData, LinkObject, NodeObject } from "react-force-graph-3d";
 import { useWindowSize } from "usehooks-ts";
 import * as ReactDOMServer from "react-dom/server";
-
 
 // console.log(typeof ForceGraphMethods);
 //TODO wtf
@@ -30,13 +29,14 @@ function linkID(link: LinkObject): string {
 	var sortedHeadTail = [tup[0], tup[1]].sort();
 	return "".concat(sortedHeadTail[0], "_", sortedHeadTail[1]);
 }
-function linkIDUnsorted(link: LinkObject): string {
-	var tup = coerceLink(link);
-	return "".concat(tup[0], "_", tup[1]);
-}
 
-type CurveRot = { rot: number; curve: number };
-function getCurveAndRotation(link: LinkObject, i: number, allLinks: Array<string>): CurveRot {
+// function linkIDUnsorted(link: LinkObject): string {
+// 	var tup = coerceLink(link);
+// 	return "".concat(tup[0], "_", tup[1]);
+// }
+
+type CurveRotFirst = { rot: number; curve: number; isFirst: boolean };
+function getCurveAndRotation(link: LinkObject, i: number, allLinks: Array<string>): CurveRotFirst {
 	const collator = new Intl.Collator("en", {
 		numeric: true,
 		sensitivity: "base",
@@ -58,13 +58,11 @@ function getCurveAndRotation(link: LinkObject, i: number, allLinks: Array<string
 		}
 	}
 	if (isAntiAlphabetical === 0) {
-		// if self loop?
+		// if self loop
 		curve = 1;
-		// rot = Math.PI/2;//(Math.sin(i) * 43758.5453123 % 1);
-		// rot = 1.5;
 	}
 
-	return { rot: rot, curve: curve };
+	return { rot: rot, curve: curve, isFirst: numBefore === 0 };
 }
 
 //Components TODO? new file
@@ -100,42 +98,45 @@ const DynamicGraph = (props: {
 	showSelfLoops: boolean;
 	curveAmount: number;
 }) => {
-	
-	const allLinksDirectional = props.graphData.links.map((l) => linkIDUnsorted(l));
-	const allLinks = props.graphData.links.map((l) => linkID(l));
-
-	const isLinkVisible = (link: LinkObject) => {
-		let canVis = link.source !== link.target || props.showSelfLoops;
-
-		if (props.curveAmount > 0) return canVis;
-
-		let numBefore = allLinksDirectional
-			.slice(0, props.graphData.links.indexOf(link))
-			.filter((x: string) => x === linkIDUnsorted(link)).length;
-
-		return (numBefore === 0 || link.source === link.target) && canVis; //(numMatches === 1) ||;
-	};
-	
+	//Node focus magic
 	const fgRef = useRef<any>();
-	const handleNodeClick = useCallback(node => {
+	const handleNodeClick = useCallback(
+		(node) => {
+			if (fgRef.current === undefined) return;
 
-		if(fgRef.current === undefined)
-			return;
+			// Aim at node from outside it
+			const distance = 40;
+			const distRatio = 2 + distance / Math.hypot(node.x, node.y, node.z);
 
-		// Aim at node from outside it
-		const distance = 40;
-		const distRatio = 2 + distance/Math.hypot(node.x, node.y, node.z);
+			fgRef.current.cameraPosition(
+				{ x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, // new position
+				node, // lookAt ({ x, y, z })
+				3000 // ms transition duration
+			);
+		},
+		[fgRef]
+	);
 
+	const attrs = useRef<any>();
+	useEffect(() => {
+		const allLinks = props.graphData.links.map((l) => linkID(l));
 
-		fgRef.current.cameraPosition(
-		  { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, // new position
-		  node, // lookAt ({ x, y, z })
-		  3000  // ms transition duration
-		);
-	  }, [fgRef]);
+		let arrayAttrs = props.graphData.links.map((l, i) => {
+			let curRot = getCurveAndRotation(l, i, allLinks);
+			return { index: i, curve: curRot.curve, rot: curRot.rot, firstLink: curRot.isFirst };
+		});
+
+		attrs.current = arrayAttrs;
+	}, [props.graphData]);
+
+	const isLinkVisible = (link: LinkObject, isFirstLink: boolean) => {
+		let canVis = link.source !== link.target || props.showSelfLoops;
+		if (props.curveAmount > 0) return canVis;
+		return (isFirstLink || link.source === link.target) && canVis;
+	};
 
 	const { width, height } = useWindowSize();
-	  
+
 	return (
 		<ForceGraph3D
 			//Basic Props
@@ -152,17 +153,20 @@ const DynamicGraph = (props: {
 					<LinkLabel link={l} nodeList={props.graphData.nodes} />
 				)
 			}
+			// linkHoverPrecision={}
 			linkDirectionalArrowLength={3.5}
 			linkDirectionalArrowRelPos={1}
 			linkCurvature={(l: LinkObject) => {
-				let c = getCurveAndRotation(l, props.graphData.links.indexOf(l), allLinks).curve;
+				let c = attrs.current[props.graphData.links.indexOf(l)].curve;
 				c = Math.max((c * props.curveAmount) / 100, l.source !== l.target ? 0 : 0.2);
 				return c;
 			}}
 			linkCurveRotation={(l: LinkObject) =>
-				getCurveAndRotation(l, props.graphData.links.indexOf(l), allLinks).rot
+				attrs.current[props.graphData.links.indexOf(l)].rot
 			}
-			linkVisibility={(l: LinkObject) => isLinkVisible(l)}
+			linkVisibility={(l: LinkObject) =>
+				isLinkVisible(l, attrs.current[props.graphData.links.indexOf(l)].firstLink)
+			}
 		/>
 	);
 };
