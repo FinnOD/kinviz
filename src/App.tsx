@@ -81,9 +81,10 @@ function App() {
 			<div className="main">
 				<div className="btn">
 					<Button
-						type="primary"
+						type="text"
 						size="large"
-						icon={<MenuOutlined />}
+            style={{ paddingLeft: '0.33em'}}
+						icon={<MenuOutlined style ={{ fontSize: '200%', color: 'white'}}/>}
 						onClick={showDrawer}
 					/>
 				</div>
