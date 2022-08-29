@@ -29,7 +29,7 @@ export interface GraphData {
 }
 
 //Components TODO? new file
-function NodeLabel(props: { node: any}): any {
+function NodeLabel(props: { node: any }): any {
 	return (
 		<div className="nodeLabel">
 			<b>{props.node.name}</b>
@@ -37,7 +37,7 @@ function NodeLabel(props: { node: any}): any {
 			{props.node.id}: {props.node.desc}.
 		</div>
 	);
-};
+}
 
 function LinkLabel(props: { edge: any }): any {
 	let source = typeof props.edge.source === "string" ? props.edge.source : props.edge.source.name;
@@ -59,7 +59,7 @@ function LinkLabel(props: { edge: any }): any {
 			{props.edge.fullPhosphorylationEffect}
 		</div>
 	);
-};
+}
 
 function idPair(attr: any): [string, string] {
 	let source = typeof attr.source === "string" ? attr.source : attr.source.id;
@@ -142,19 +142,20 @@ function dataGraphToGraphology(graphData: GraphData): MultiDirectedGraph {
 }
 
 type FCLookup = { [key: string]: { fc: number; err: number } };
-function addFCtoG(G: MultiDirectedGraph, fcData: FCData | undefined): FCLookup {
+function addFCtoG(G: MultiDirectedGraph, fcData: FCData | undefined): MultiDirectedGraph {
 	if (fcData === undefined) {
-		let outArray = G.mapEdges((edge, attr) => {
-			return [edge, { fc: undefined, err: undefined }];
+		G.updateEachEdgeAttributes((edge, attr) => {
+			attr.fc = undefined;
+			attr.err = undefined;
+			return attr;
 		});
-		let out = Object.fromEntries(outArray);
-		return out;
+		return G;
 	} else {
 		let panSpecificFirst = fcData?.sort((x, y) =>
 			x.site === y.site ? 0 : x.site === "Pan-specific" ? -1 : 1
 		);
 
-		let outArray = G.mapEdges((edge, attr) => {
+		G.updateEachEdgeAttributes((edge, attr) => {
 			let target = idPair(attr)[1];
 			let foundFC = panSpecificFirst
 				.slice()
@@ -167,10 +168,11 @@ function addFCtoG(G: MultiDirectedGraph, fcData: FCData | undefined): FCLookup {
 				);
 			if (betterMatch !== undefined) foundFC = betterMatch;
 
-			return [edge, { fc: foundFC?.fc, err: foundFC?.err }];
+			attr.fc = foundFC?.fc;
+			attr.err = foundFC?.err;
+			return attr;
 		});
-
-		return Object.fromEntries(outArray);
+		return G;
 	}
 }
 
@@ -203,24 +205,23 @@ const DynamicGraph = (props: {
 	const [G, updateG] = useState<MultiDirectedGraph>();
 	// edgeKey lookup for fc data
 	// TODO put into G
-	const [fcLookup, setFCLookup] = useState<FCLookup | undefined>();
+	// const [fcLookup, setFCLookup] = useState<FCLookup | undefined>();
 	useEffect(() => {
 		//Generate Graphology representation and layout properties
 		let newG = calculateCurveRotVis(dataGraphToGraphology(props.graphData).copy());
 
 		// update the fcLookup for the new dataset
-		let newFCLookup = addFCtoG(newG.copy(), props.fcData);
+		let newGWithFC = addFCtoG(newG.copy(), props.fcData);
 
-		setFCLookup(newFCLookup);
-		updateG(newG);
+		updateG(newGWithFC);
 	}, [props.graphData]);
 
 	useEffect(() => {
 		if (G === undefined) return;
 
-		let newFCLookup = addFCtoG(G.copy(), props.fcData);
+		let newGWithFC = addFCtoG(G.copy(), props.fcData);
 
-		setFCLookup(newFCLookup);
+		updateG(newGWithFC);
 	}, [props.fcData]);
 
 	const [hoveredNode, setHoveredNode] = useState(null);
@@ -247,20 +248,20 @@ const DynamicGraph = (props: {
 			linkLabel={(l: any) => renderToString(<LinkLabel edge={G?.getEdgeAttributes(l.key)} />)}
 			linkHoverPrecision={10}
 			linkWidth={(l: any) => {
-				let p = fcLookup?.[l.key]?.fc ?? 0.4;
+				let p = G?.getEdgeAttribute(l.key, "fc") ?? 0.4;
 				return Math.max(0.01, 2 * Math.abs(p));
 			}}
 			onLinkHover={(l: any) => setHoveredLink(l)}
 			linkColor={(l: any) => {
 				let hovCol = l === hoveredLink ? "#FF964D" : "#9DAABC";
-				let fc = fcLookup?.[l.key]?.fc;
+				let fc = G?.getEdgeAttribute(l.key, "fc");
 				if (fc === undefined) return hovCol;
 				return l === hoveredLink ? "#F0B648" : fc > 0 ? "#FF964D" : "#2A729A";
 			}}
 			linkDirectionalArrowLength={3.5}
 			linkDirectionalArrowRelPos={1}
 			linkDirectionalParticles={(l: any) => {
-				let p = fcLookup?.[l.key]?.fc ?? 0;
+				let p = G?.getEdgeAttribute(l.key, "fc") ?? 0;
 				if (p === 0) return 0;
 				return Math.max(0, 3 + p);
 			}}
