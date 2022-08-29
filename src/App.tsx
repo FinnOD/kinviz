@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { GraphData } from "react-force-graph-3d";
+// import { GraphData } from "react-force-graph-3d";
 import { MenuOutlined } from "@ant-design/icons";
 import { Button, Drawer, Slider, Switch, Divider } from "antd";
 //user
 import "./App.css";
-import DynamicGraph from "./DynGraph";
+import DynamicGraph, { GraphData } from "./DynGraphGraphology";
 import NetworkSelect from "./NetworkSelect";
 import DataUpload, { FCData } from "./UploadComponent";
 //data
@@ -12,17 +12,20 @@ import networkKinasesSmall from "./data/networkKinasesSmall.json";
 import networkKinasesMedium from "./data/networkKinasesMedium.json";
 import networkKinasesOnly from "./data/networkKinasesOnly.json";
 import network from "./data/network.json";
-import example from "./data/example.json";
+// import example from "./data/example.json";
 import example2 from "./data/example2.json";
 
+
+
 const networks: Record<string, GraphData> = {
+	"Example 2": example2,
 	"Small Kinase Subset": networkKinasesSmall,
 	"Medium Kinase Subset": networkKinasesMedium,
 	"All Kinases": networkKinasesOnly,
 	// @ts-ignore network file is too large and compiler throws an error
 	"Full network": network,
-	"Example 1": example,
-	"Example 2": example2,
+	// "Example 1": example,
+	
 };
 
 function App() {

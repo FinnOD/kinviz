@@ -1,28 +1,44 @@
 {
-  "nodes": [
-    {
-      "id": "id1",
-      "name": "name1",
-      "val": 1
-    },
-    {
-      "id": "id2",
-      "name": "name2",
-      "val": 2
-    }
-  ],
-  "links": [
-    {
-      "source": "id1",
-      "target": "id2"
-    },
-    {
-      "source": "id2",
-      "target": "id1"
-    },
-    {
-      "source": "id1",
-      "target": "id1"
-    }
-  ]
+	"links": [
+		{
+			"effectCode": "",
+			"fullPhosphorylationEffect": "The effect of MST1 Ser-327 phosphorylation is unclear.",
+			"key": "Q13043-S327->P08631",
+			"source": "Q13043",
+			"substratePhosphosite": "S327",
+			"target": "P08631"
+		},
+		{
+			"effectCode": "+",
+			"fullPhosphorylationEffect": "MST1 Thr-177 phosphorylation is predicted to be stimulatory for phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
+			"key": "P08631-S37->Q13043",
+			"source": "P08631",
+			"substratePhosphosite": "S37",
+			"target": "Q13043"
+		},
+		{
+			"effectCode": "+",
+			"fullPhosphorylationEffect": "MST1 Thr-177 phosphorylation is predicted to be stimulatory for phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
+			"key": "Q13043-T177->Q13043",
+			"source": "Q13043",
+			"substratePhosphosite": "T121",
+			"target": "Q13043"
+		}
+	],
+	"nodes": [
+		{
+			"desc": "Protein kinase - Ser/Thr (non-receptor), STE group, STE20 family, MST subfamily",
+			"id": "Q13043",
+			"isKinase": true,
+			"name": "STK4",
+			"type": "Kinase"
+		},
+		{
+			"desc": "Protein kinase - Tyr (non-receptor), TK group, Src family",
+			"id": "P08631",
+			"isKinase": true,
+			"name": "HCK",
+			"type": "Kinase"
+		}
+	]
 }

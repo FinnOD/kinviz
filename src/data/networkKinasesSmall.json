@@ -1,730 +1,9 @@
 {
     "links": [
         {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "Tie1 Tyr-1007 phosphorylation is predicted to be stimulatory for phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
-            "source": "P35590",
-            "substratePhosphosite": "Y1007",
-            "target": "P35590",
-            "curvature": 1
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "Tie1 Tyr-1117 phosphorylation induces interaction with PIK3R1.",
-            "source": "P35590",
-            "substratePhosphosite": "Y1117",
-            "target": "P35590"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of EphA2 Tyr-575 phosphorylation is unclear.",
-            "source": "P29317",
-            "substratePhosphosite": "Y575",
-            "target": "P29317"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "EphA2 Tyr-588 phosphorylation stimulates phosphotransferase activity, induces interaction with Nck1, VAV2 and VAV3, and regulates cell adhesion, cell differentiation, and cell motility.",
-            "source": "P29317",
-            "substratePhosphosite": "Y588",
-            "target": "P29317"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "EphA2 Tyr-594 phosphorylation stimulates phosphotransferase activity and regulates cell differentiation, cell motility and molecular association, including inducing interaction with VAV2 and VAV3.",
-            "source": "P29317",
-            "substratePhosphosite": "Y594",
-            "target": "P29317"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of EphA2 Tyr-628 phosphorylation is unclear.",
-            "source": "P29317",
-            "substratePhosphosite": "Y628",
-            "target": "P29317"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of EphA2 Tyr-694 phosphorylation is unclear.",
-            "source": "P29317",
-            "substratePhosphosite": "Y694",
-            "target": "P29317"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "EphA2 Tyr-735 phosphorylation stimulates phosphotransferase activity, induces interaction with PIK3R1, and regulates cell differentiation, and cell motility.",
-            "source": "P29317",
-            "substratePhosphosite": "Y735",
-            "target": "P29317"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of EphA2 Tyr-772 phosphorylation is unclear.",
-            "source": "P29317",
-            "substratePhosphosite": "Y772",
-            "target": "P29317"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "EphA2 Tyr-921 phosphorylation induces interaction with Grb2 and SHIP-2.",
-            "source": "P29317",
-            "substratePhosphosite": "Y921",
-            "target": "P29317"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "EphA2 Tyr-930 phosphorylation stimulates phosphotransferase activity and induces interaction with Grb2, NCK1, PIK3R1, PIK3R2, PIK3R3, VAV1 and VAV3.",
-            "source": "P29317",
-            "substratePhosphosite": "Y930",
-            "target": "P29317"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "EphA2 Tyr-960 phosphorylation induces interaction with SHIP-2.",
-            "source": "P29317",
-            "substratePhosphosite": "Y960",
-            "target": "P29317"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of Chk1 Ser-291 phosphorylation is unclear.",
-            "source": "O14757",
-            "substratePhosphosite": "S291",
-            "target": "O14757"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "Chk1 Ser-296 phosphorylation stimulates phosphotransferase activity, and regulates cell cycle, cell growth, alters intracellular location, and molecular association.",
-            "source": "O14757",
-            "substratePhosphosite": "S296",
-            "target": "O14757"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of Chk1 Ser-316 phosphorylation is unclear.",
-            "source": "O14757",
-            "substratePhosphosite": "S316",
-            "target": "O14757"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of MEK1 Thr-55 phosphorylation is unclear.",
-            "source": "O14757",
-            "substratePhosphosite": "T55",
-            "target": "Q02750"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "AurKB Ser-331 phosphorylation stimulates phosphotransferase activity, and induces interactions with Survivin.",
-            "source": "O14757",
-            "substratePhosphosite": "S331",
-            "target": "Q96GD4"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of CK1d1 Ser-328 phosphorylation is unclear.",
-            "source": "O14757",
-            "substratePhosphosite": "S328",
-            "target": "P48730"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of CK1d1 Ser-331 phosphorylation is unclear.",
-            "source": "O14757",
-            "substratePhosphosite": "S331",
-            "target": "P48730"
-        },
-        {
-            "effectCode": "-",
-            "fullPhosphorylationEffect": "CK1d1 Ser-370 phosphorylation inhibits phosphotransferase activity.",
-            "source": "O14757",
-            "substratePhosphosite": "S370",
-            "target": "P48730"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of CK1d1 Thr-397 phosphorylation is unclear.",
-            "source": "O14757",
-            "substratePhosphosite": "T397",
-            "target": "P48730"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of MST1 Thr-340 phosphorylation is unclear.",
-            "source": "O14757",
-            "substratePhosphosite": "T340",
-            "target": "Q13043"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "NEK11 Ser-273 phosphorylation stimulates phosphotransferase activity.",
-            "source": "O14757",
-            "substratePhosphosite": "S273",
-            "target": "Q8NG66"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of ZC3 Thr-280 phosphorylation is unclear.",
-            "source": "O14757",
-            "substratePhosphosite": "T280",
-            "target": "Q8N4C8"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "MEK1 Ser-218 phosphorylation stimulates phosphotransferase activity and regulates cell cycle progression and cell growth. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
-            "source": "Q02750",
-            "substratePhosphosite": "S218",
-            "target": "Q02750"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "MEK1 Ser-222 phosphorylation stimulates phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
-            "source": "Q02750",
-            "substratePhosphosite": "S222",
-            "target": "Q02750"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "MEK1 Ser-298 phosphorylation stimulates phosphotransferase activity, and regulates cell growth and molecular association.",
-            "source": "Q02750",
-            "substratePhosphosite": "S298",
-            "target": "Q02750"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of MEK1 Tyr-300 phosphorylation is unclear.",
-            "source": "Q02750",
-            "substratePhosphosite": "Y300",
-            "target": "Q02750"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of mTOR Ser-2454 phosphorylation is unclear.",
-            "source": "P42345",
-            "substratePhosphosite": "S2454",
-            "target": "P42345"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of mTOR Ser-2478 phosphorylation is unclear.",
-            "source": "P42345",
-            "substratePhosphosite": "S2478",
-            "target": "P42345"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "mTOR Ser-2481 phosphorylation stimulates phosphotransferase activity.",
-            "source": "P42345",
-            "substratePhosphosite": "S2481",
-            "target": "P42345"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of mTOR Thr-2473 phosphorylation is unclear.",
-            "source": "P42345",
-            "substratePhosphosite": "T2473",
-            "target": "P42345"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of mTOR Thr-2474 phosphorylation is unclear.",
-            "source": "P42345",
-            "substratePhosphosite": "T2474",
-            "target": "P42345"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of MST1 Ser-438 phosphorylation is unclear.",
-            "source": "P42345",
-            "substratePhosphosite": "S438",
-            "target": "Q13043"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of OSR1 Ser-339 phosphorylation is unclear.",
-            "source": "P42345",
-            "substratePhosphosite": "S339",
-            "target": "O95747"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "Akt1 Ser-473 phosphorylation stimulates phosphotransferase activity and regulates cell cycle progression, and intracellular location.",
-            "source": "P42345",
-            "substratePhosphosite": "S473",
-            "target": "P31749"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "Akt1 Thr-450 phosphorylation stimulates phosphotransferase activity, induces interaction with ILK, PAK1, PDK1, PIK3R1, PPP2CA, and Rictor, and regulates apoptosis, carcinogenesis, cell cycle progression, cell differentiation, cell growth, cell motility, cytoskeletal reorganization, gene transcription, and intracellular location.",
-            "source": "P42345",
-            "substratePhosphosite": "T450",
-            "target": "P31749"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of AurKB Ser-19 phosphorylation is unclear.",
-            "source": "Q96GD4",
-            "substratePhosphosite": "S19",
-            "target": "Q96GD4"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "AurKB Ser-227 phosphorylation is predicted to be stimulatory for phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII. Phosphorylation induces interaction with INCENP.",
-            "source": "Q96GD4",
-            "substratePhosphosite": "S227",
-            "target": "Q96GD4"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of AurKB Ser-7 phosphorylation is unclear.",
-            "source": "Q96GD4",
-            "substratePhosphosite": "S7",
-            "target": "Q96GD4"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of AurKB Thr-16 phosphorylation is unclear.",
-            "source": "Q96GD4",
-            "substratePhosphosite": "T16",
-            "target": "Q96GD4"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "AurKB Thr-232 phosphorylation was reported to both stimulate and inhibit phosphotransferase activity and regulate cytoskeletal reorganization and intracellular location. Predicted to be stimulatory for phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
-            "source": "Q96GD4",
-            "substratePhosphosite": "T232",
-            "target": "Q96GD4"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "mTOR Ser-1415 phosphorylation stimulates enzymatic activity.",
-            "source": "O15111",
-            "substratePhosphosite": "S1415",
-            "target": "P42345"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of PKCb1 Ser-16 phosphorylation is unclear.",
-            "source": "P05771",
-            "substratePhosphosite": "S16",
-            "target": "P05771"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "PKCb2 Ser-660 phosphorylation regulates intracellular localization.",
-            "source": "P05771",
-            "substratePhosphosite": "S660",
-            "target": "P05771"
-        },
-        {
-            "effectCode": "-",
-            "fullPhosphorylationEffect": "PKCb1 Ser-661 phosphorylation inhibits phosphotransferase activity, inhibits membrane binding and causes release into cytoplasm.",
-            "source": "P05771",
-            "substratePhosphosite": "S661",
-            "target": "P05771"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of PKCb1 Thr-17 phosphorylation is unclear.",
-            "source": "P05771",
-            "substratePhosphosite": "T17",
-            "target": "P05771"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of PKCb1 Thr-314 phosphorylation is unclear.",
-            "source": "P05771",
-            "substratePhosphosite": "T314",
-            "target": "P05771"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of PKCb1 Thr-324 phosphorylation is unclear.",
-            "source": "P05771",
-            "substratePhosphosite": "T324",
-            "target": "P05771"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "PKCb1 Thr-500 phosphorylation stimulates phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
-            "source": "P05771",
-            "substratePhosphosite": "T500",
-            "target": "P05771"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "PKCb1 Thr-635 phosphorylation stimulates phosphotransferase activity.",
-            "source": "P05771",
-            "substratePhosphosite": "T635",
-            "target": "P05771"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "PKCb1 Thr-642 phosphorylation stimulates phosphotransferase activity and regulates intracellular location.",
-            "source": "P05771",
-            "substratePhosphosite": "T642",
-            "target": "P05771"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "Akt1 Ser-473 phosphorylation stimulates phosphotransferase activity and regulates cell cycle progression, and intracellular location.",
-            "source": "P05771",
-            "substratePhosphosite": "S473",
-            "target": "P31749"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "Akt1 Thr-308 phosphorylation stimulates phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII. Phosphorylation regulates transcription, translation, protein conformation, ubiquitination, and cell growth, differentiation and apoptosis.",
-            "source": "P05771",
-            "substratePhosphosite": "T308",
-            "target": "P31749"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "Akt1 Ser-473 phosphorylation stimulates phosphotransferase activity and regulates cell cycle progression, and intracellular location.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S473",
-            "target": "P31749"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-1124 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S1124",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-1253 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S1253",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-1283 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S1283",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-1292 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S1292",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-1345 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S1345",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-1403 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S1403",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-1443 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S1443",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-1444 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S1444",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-1445 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S1445",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-1457 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S1457",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-1467 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S1467",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-1508 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S1508",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-1536 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S1536",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-1647 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S1647",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-1853 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S1853",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-1913 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S1913",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "LRRK2 Ser-2032 phosphorylation stimulates phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S2032",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-2257 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S2257",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-3 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S3",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Ser-5 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "S5",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-1343 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T1343",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-1348 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T1348",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-1357 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T1357",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-1368 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T1368",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-1404 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T1404",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "LRRK2 Thr-1410 phosphorylation stimulates phosphotransferase activity, and induces interaction with LRRK2.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T1410",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-1452 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T1452",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-1470 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T1470",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-1491 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T1491",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-1503 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T1503",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-1612 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T1612",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-1849 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T1849",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-1912 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T1912",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-1967 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T1967",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-1969 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T1969",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-2031 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T2031",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "LRRK2 Thr-2035 phosphorylation was reported to be stimulatory phosphotransferase activity, athough this is predicted to be inhibitory. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T2035",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-2483 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T2483",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-2524 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T2524",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-424 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T424",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-524 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T524",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-776 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T776",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-826 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T826",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-833 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T833",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Thr-838 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "T838",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Tyr-1332 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "Y1332",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Tyr-1402 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "Y1402",
-            "target": "Q5S007"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of LRRK2 Tyr-1485 phosphorylation is unclear.",
-            "source": "Q5S007",
-            "substratePhosphosite": "Y1485",
-            "target": "Q5S007"
-        },
-        {
             "effectCode": "",
             "fullPhosphorylationEffect": "The effect of MST1 Ser-327 phosphorylation is unclear.",
+            "key": "Q13043-S327->Q13043",
             "source": "Q13043",
             "substratePhosphosite": "S327",
             "target": "Q13043"
@@ -732,6 +11,7 @@
         {
             "effectCode": "+",
             "fullPhosphorylationEffect": "MST1 Thr-177 phosphorylation is predicted to be stimulatory for phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
+            "key": "Q13043-T177->Q13043",
             "source": "Q13043",
             "substratePhosphosite": "T177",
             "target": "Q13043"
@@ -739,6 +19,7 @@
         {
             "effectCode": "+",
             "fullPhosphorylationEffect": "MST1 Thr-183 phosphorylation stimulates phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII. Phosphorylation regulates intracellular location.",
+            "key": "Q13043-T183->Q13043",
             "source": "Q13043",
             "substratePhosphosite": "T183",
             "target": "Q13043"
@@ -746,6 +27,7 @@
         {
             "effectCode": "+",
             "fullPhosphorylationEffect": "MST1 Thr-353 phosphorylation induces interaction with MOB1A and inhibits interaction with MST1.",
+            "key": "Q13043-T353->Q13043",
             "source": "Q13043",
             "substratePhosphosite": "T353",
             "target": "Q13043"
@@ -753,6 +35,7 @@
         {
             "effectCode": "",
             "fullPhosphorylationEffect": "The effect of MST1 Thr-367 phosphorylation is unclear.",
+            "key": "Q13043-T367->Q13043",
             "source": "Q13043",
             "substratePhosphosite": "T367",
             "target": "Q13043"
@@ -760,206 +43,723 @@
         {
             "effectCode": "+",
             "fullPhosphorylationEffect": "MST1 Thr-387 phosphorylation stimulates phosphotransferase activity and inhibits proteolysis during apoptosis.",
+            "key": "Q13043-T387->Q13043",
             "source": "Q13043",
             "substratePhosphosite": "T387",
             "target": "Q13043"
         },
         {
             "effectCode": "+",
-            "fullPhosphorylationEffect": "AurKB Thr-232 phosphorylation was reported to both stimulate and inhibit phosphotransferase activity and regulate cytoskeletal reorganization and intracellular location. Predicted to be stimulatory for phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
-            "source": "Q13043",
-            "substratePhosphosite": "T232",
-            "target": "Q96GD4"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "MEK1 Ser-218 phosphorylation stimulates phosphotransferase activity and regulates cell cycle progression and cell growth. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
-            "source": "P10398",
-            "substratePhosphosite": "S218",
-            "target": "Q02750"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "MEK1 Ser-222 phosphorylation stimulates phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
-            "source": "P10398",
-            "substratePhosphosite": "S222",
-            "target": "Q02750"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "PAK3 Ser-154 phosphorylation stimulates phosphotransferase activity, and regulates cytoskeletal reorganization.",
-            "source": "O75914",
-            "substratePhosphosite": "S154",
-            "target": "O75914"
+            "fullPhosphorylationEffect": "Hck Tyr-411 phosphorylation is predicted to be stimulatory for phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
+            "key": "P08631-Y411->P08631",
+            "source": "P08631",
+            "substratePhosphosite": "Y411",
+            "target": "P08631"
         },
         {
             "effectCode": "",
-            "fullPhosphorylationEffect": "PAK3 Ser-50 phosphorylation regulates cytoskeletal reorganization.",
-            "source": "O75914",
-            "substratePhosphosite": "S50",
-            "target": "O75914"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "PAK3 Thr-436 phosphorylation stimulates phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII. Phosphorylation regulates cytoskeletal reorganization.",
-            "source": "O75914",
-            "substratePhosphosite": "T436",
-            "target": "O75914"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "ERK4 Ser-186 phosphorylation stimulates phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII. Phosphorylation induces interaction with MAPKAPK5.",
-            "source": "O75914",
-            "substratePhosphosite": "S186",
-            "target": "P31152"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "MEK1 Ser-298 phosphorylation stimulates phosphotransferase activity, and regulates cell growth and molecular association.",
-            "source": "O75914",
-            "substratePhosphosite": "S298",
-            "target": "Q02750"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "Akt1 Thr-308 phosphorylation stimulates phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII. Phosphorylation regulates transcription, translation, protein conformation, ubiquitination, and cell growth, differentiation and apoptosis.",
-            "source": "Q96RR4",
-            "substratePhosphosite": "T308",
-            "target": "P31749"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "CaMKK2 Thr-85 phosphorylation induces enzymatic activity.",
-            "source": "Q96RR4",
-            "substratePhosphosite": "T85",
-            "target": "Q96RR4"
-        },
-        {
-            "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of Tie1 Thr-798 phosphorylation is unclear.",
-            "source": "P31749",
-            "substratePhosphosite": "T798",
-            "target": "P35590"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "EphA2 Ser-897 phosphorylation stimulates functional activity to mediate serum-induced chemotaxis.",
-            "source": "P31749",
-            "substratePhosphosite": "S897",
-            "target": "P29317"
+            "fullPhosphorylationEffect": "The effect of Hck Tyr-51 phosphorylation is unclear.",
+            "key": "P08631-Y51->P08631",
+            "source": "P08631",
+            "substratePhosphosite": "Y51",
+            "target": "P08631"
         },
         {
             "effectCode": "-",
-            "fullPhosphorylationEffect": "Chk1 Ser-280 phosphorylation inhibits phosphotransferase activity, and regulates cell cycle progression, intracellular location, protein degradation by promoting mono and/or diubiquitination and molecular association.",
-            "source": "P31749",
-            "substratePhosphosite": "S280",
+            "fullPhosphorylationEffect": "Hck Tyr-522 phosphorylation inhibits phosphotransferase activity.",
+            "key": "P08631-Y522->P08631",
+            "source": "P08631",
+            "substratePhosphosite": "Y522",
+            "target": "P08631"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of TBK1 Tyr-354 phosphorylation is unclear.",
+            "key": "P08631-Y354->Q9UHD2",
+            "source": "P08631",
+            "substratePhosphosite": "Y354",
+            "target": "Q9UHD2"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of TBK1 Tyr-394 phosphorylation is unclear.",
+            "key": "P08631-Y394->Q9UHD2",
+            "source": "P08631",
+            "substratePhosphosite": "Y394",
+            "target": "Q9UHD2"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of InsR Ser-1033 phosphorylation is unclear.",
+            "key": "Q9UHD2-S1033->P06213",
+            "source": "Q9UHD2",
+            "substratePhosphosite": "S1033",
+            "target": "P06213"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "TBK1 Ser-172 phosphorylation stimulates phosphotransferase activity.",
+            "key": "Q9UHD2-S172->Q9UHD2",
+            "source": "Q9UHD2",
+            "substratePhosphosite": "S172",
+            "target": "Q9UHD2"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of PKG1 Ser-27 phosphorylation is unclear.",
+            "key": "Q13976-S27->Q13976",
+            "source": "Q13976",
+            "substratePhosphosite": "S27",
+            "target": "Q13976"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of PKG1 Ser-45 phosphorylation is unclear.",
+            "key": "Q13976-S45->Q13976",
+            "source": "Q13976",
+            "substratePhosphosite": "S45",
+            "target": "Q13976"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of PKG1 Ser-51 phosphorylation is unclear.",
+            "key": "Q13976-S51->Q13976",
+            "source": "Q13976",
+            "substratePhosphosite": "S51",
+            "target": "Q13976"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKG1 Ser-65 phosphorylation stimulates phosphotransferase activity, and induces ubiquitination.",
+            "key": "Q13976-S65->Q13976",
+            "source": "Q13976",
+            "substratePhosphosite": "S65",
+            "target": "Q13976"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of PKG1 Ser-73 phosphorylation is unclear.",
+            "key": "Q13976-S73->Q13976",
+            "source": "Q13976",
+            "substratePhosphosite": "S73",
+            "target": "Q13976"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKG1 Thr-517 phosphorylation stimulates phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII. Phosphorylation regulates transcription.",
+            "key": "Q13976-T517->Q13976",
+            "source": "Q13976",
+            "substratePhosphosite": "T517",
+            "target": "Q13976"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKG1 Thr-59 phosphorylation stimulates phosphotransferase activity.",
+            "key": "Q13976-T59->Q13976",
+            "source": "Q13976",
+            "substratePhosphosite": "T59",
+            "target": "Q13976"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of PKG1 Thr-85 phosphorylation is unclear.",
+            "key": "Q13976-T85->Q13976",
+            "source": "Q13976",
+            "substratePhosphosite": "T85",
+            "target": "Q13976"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of PKG1 iso2. Ser-81 phosphorylation is unclear.",
+            "key": "Q13976-S81->Q13976",
+            "source": "Q13976",
+            "substratePhosphosite": "S81",
+            "target": "Q13976"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of PKCb1 Ser-16 phosphorylation is unclear.",
+            "key": "P05771-S16->P05771",
+            "source": "P05771",
+            "substratePhosphosite": "S16",
+            "target": "P05771"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "PKCb2 Ser-660 phosphorylation regulates intracellular localization.",
+            "key": "P05771-S660->P05771",
+            "source": "P05771",
+            "substratePhosphosite": "S660",
+            "target": "P05771"
+        },
+        {
+            "effectCode": "-",
+            "fullPhosphorylationEffect": "PKCb1 Ser-661 phosphorylation inhibits phosphotransferase activity, inhibits membrane binding and causes release into cytoplasm.",
+            "key": "P05771-S661->P05771",
+            "source": "P05771",
+            "substratePhosphosite": "S661",
+            "target": "P05771"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of PKCb1 Thr-17 phosphorylation is unclear.",
+            "key": "P05771-T17->P05771",
+            "source": "P05771",
+            "substratePhosphosite": "T17",
+            "target": "P05771"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of PKCb1 Thr-314 phosphorylation is unclear.",
+            "key": "P05771-T314->P05771",
+            "source": "P05771",
+            "substratePhosphosite": "T314",
+            "target": "P05771"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of PKCb1 Thr-324 phosphorylation is unclear.",
+            "key": "P05771-T324->P05771",
+            "source": "P05771",
+            "substratePhosphosite": "T324",
+            "target": "P05771"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKCb1 Thr-500 phosphorylation stimulates phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
+            "key": "P05771-T500->P05771",
+            "source": "P05771",
+            "substratePhosphosite": "T500",
+            "target": "P05771"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKCb1 Thr-635 phosphorylation stimulates phosphotransferase activity.",
+            "key": "P05771-T635->P05771",
+            "source": "P05771",
+            "substratePhosphosite": "T635",
+            "target": "P05771"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKCb1 Thr-642 phosphorylation stimulates phosphotransferase activity and regulates intracellular location.",
+            "key": "P05771-T642->P05771",
+            "source": "P05771",
+            "substratePhosphosite": "T642",
+            "target": "P05771"
+        },
+        {
+            "effectCode": "-",
+            "fullPhosphorylationEffect": "EGFR Thr-678 phosphorylation inhibits phosphotransferase activity, and regulates receptor internalization, intracellular location, receptor desensitization, receptor recycling, protein degradation, cytoskeletal reorganization and molecular association.",
+            "key": "P05771-T678->P00533",
+            "source": "P05771",
+            "substratePhosphosite": "T678",
+            "target": "P00533"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKCa Thr-497 phosphorylation stimulates and is esential for phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
+            "key": "P05771-T497->P17252",
+            "source": "P05771",
+            "substratePhosphosite": "T497",
+            "target": "P17252"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of InsR Ser-1314 phosphorylation is unclear.",
+            "key": "P06213-S1314->P06213",
+            "source": "P06213",
+            "substratePhosphosite": "S1314",
+            "target": "P06213"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of InsR Ser-1348 phosphorylation is unclear.",
+            "key": "P06213-S1348->P06213",
+            "source": "P06213",
+            "substratePhosphosite": "S1348",
+            "target": "P06213"
+        },
+        {
+            "effectCode": "-",
+            "fullPhosphorylationEffect": "InsR Tyr-1011 phosphorylation inhibits phosphotransferase activity.",
+            "key": "P06213-Y1011->P06213",
+            "source": "P06213",
+            "substratePhosphosite": "Y1011",
+            "target": "P06213"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "InsR Tyr-1185 phosphorylation stimulates phosphotransferase activity, induces interaction with APS, Grb7, SOCS1, IRS2 and PTP1B, and receptor internalization. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
+            "key": "P06213-Y1185->P06213",
+            "source": "P06213",
+            "substratePhosphosite": "Y1185",
+            "target": "P06213"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "InsR Tyr-1189 phosphorylation stimulates phosphotransferase activity, induces interaction with APS, Grb7, SOCS1, IRS2 and PTP1B, and receptor internalization. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
+            "key": "P06213-Y1189->P06213",
+            "source": "P06213",
+            "substratePhosphosite": "Y1189",
+            "target": "P06213"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "InsR Tyr-1190 phosphorylation stimulates phosphotransferase activity, induces interaction with SOCS1, IRS2, PTP1B, Grb7 and Grb14 (via BPS domain), and receptor internalization. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
+            "key": "P06213-Y1190->P06213",
+            "source": "P06213",
+            "substratePhosphosite": "Y1190",
+            "target": "P06213"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "InsR Tyr-1355 phosphorylation stimulates phosphotransferase activity, and regulates cell cycle progression, cell growth, and protein conformation.",
+            "key": "P06213-Y1355->P06213",
+            "source": "P06213",
+            "substratePhosphosite": "Y1355",
+            "target": "P06213"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "InsR Tyr-1361 phosphorylation stimulates phosphotransferase activity, and regulates cell cycle progression, cell growth, and protein conformation.",
+            "key": "P06213-Y1361->P06213",
+            "source": "P06213",
+            "substratePhosphosite": "Y1361",
+            "target": "P06213"
+        },
+        {
+            "effectCode": "-",
+            "fullPhosphorylationEffect": "InsR Tyr-992 phosphorylation inhibits phosphotransferase activity, and induces interaction with IRS1.",
+            "key": "P06213-Y992->P06213",
+            "source": "P06213",
+            "substratePhosphosite": "Y992",
+            "target": "P06213"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "InsR Tyr-999 phosphorylation stimulates phosphotransferase activity and induces interaction with IRS1 and Shc1 (via their PTB/PID domains), STAT5B and SOCS3. Phosphorylation regulates cell cycle progression, receptor internalization, and molecular association.",
+            "key": "P06213-Y999->P06213",
+            "source": "P06213",
+            "substratePhosphosite": "Y999",
+            "target": "P06213"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "EGFR Tyr-1016 phosphorylation stimulates phosphotransferase activity, and regulates cell adhesion, cell motility, endocytosis, protein conformation, intracellular location, receptor internalization and molecular association.",
+            "key": "P00533-Y1016->P00533",
+            "source": "P00533",
+            "substratePhosphosite": "Y1016",
+            "target": "P00533"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "EGFR Tyr-1069 phosphorylation stimulates phosphotransferase activity, induces interaction with Cbl, and induces protein ubquitination and degradation.",
+            "key": "P00533-Y1069->P00533",
+            "source": "P00533",
+            "substratePhosphosite": "Y1069",
+            "target": "P00533"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "EGFR Tyr-1092 phosphorylation induces interaction with STAT3 and regulates apoptosis, cell adhesion, cell growth, transcription, enzymatic activation, protein conformation, intracellular location, enzymatic activation, protein degradation, receptor internalization, molecular association, and ubquitination.",
+            "key": "P00533-Y1092->P00533",
+            "source": "P00533",
+            "substratePhosphosite": "Y1092",
+            "target": "P00533"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "EGFR Tyr-1110 phosphorylation stimulates phosphotransferase activity, induces interaction with Cbl, DNA, DOK1, DOK2, Grb2, RASA1, Shc1 and STAT3. Phosphorylation regulates transcription, protein conformation, intracellular location, receptor internalization, molecular association, and ubquitination.",
+            "key": "P00533-Y1110->P00533",
+            "source": "P00533",
+            "substratePhosphosite": "Y1110",
+            "target": "P00533"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "EGFR Tyr-1172 phosphorylation stimulates phosphotransferase activity, induces interaction with DOK1, DOK2, EGFR, Grb2, RASA1, Shc1, PTPN6 (SHP1) and VAV2, and regulates cell growth, protein degradation, and receptor internalization.",
+            "key": "P00533-Y1172->P00533",
+            "source": "P00533",
+            "substratePhosphosite": "Y1172",
+            "target": "P00533"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "EGFR Tyr-1197 phosphorylation stimulates phosphotransferase activity. Autophosphorylation at Tyr-1197 is stimulated by methylation at Arg-1199 and enhances interaction with PTPN6. Phosphorylation regulates cell growth, intracellular location, protein degradation, receptor internalization and molecular association.",
+            "key": "P00533-Y1197->P00533",
+            "source": "P00533",
+            "substratePhosphosite": "Y1197",
+            "target": "P00533"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "EGFR Tyr-869 phosphorylation stimulates phosphotransferase activity and induces protein interaction with COX2 and PKCE and PKCZ.",
+            "key": "P00533-Y869->P00533",
+            "source": "P00533",
+            "substratePhosphosite": "Y869",
+            "target": "P00533"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "BARK1 Tyr-13 phosphorylation stimulates phosphotransferase activity, induces interaction with G-alpha(q), and protein degradation.",
+            "key": "P00533-Y13->P25098",
+            "source": "P00533",
+            "substratePhosphosite": "Y13",
+            "target": "P25098"
+        },
+        {
+            "effectCode": "-",
+            "fullPhosphorylationEffect": "BARK1 Tyr-86 phosphorylation induces protein degradation, and interaction with G-alpha(q).",
+            "key": "P00533-Y86->P25098",
+            "source": "P00533",
+            "substratePhosphosite": "Y86",
+            "target": "P25098"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "BARK1 Tyr-92 phosphorylation stimulates phosphotransferase activity, induces interaction with G-alpha(q), and protein degradation.",
+            "key": "P00533-Y92->P25098",
+            "source": "P00533",
+            "substratePhosphosite": "Y92",
+            "target": "P25098"
+        },
+        {
+            "effectCode": "-",
+            "fullPhosphorylationEffect": "LRRK1 Tyr-971 phosphorylation inhibits enzymatic activity.",
+            "key": "P00533-Y971->Q38SD2",
+            "source": "P00533",
+            "substratePhosphosite": "Y971",
+            "target": "Q38SD2"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKCd Tyr-313 phosphorylation stimulates phosphotransferase activity, and regulates transcription and apoptosis.",
+            "key": "P00533-Y313->Q05655",
+            "source": "P00533",
+            "substratePhosphosite": "Y313",
+            "target": "Q05655"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKCd Tyr-334 phosphorylation stimulates phosphotransferase activity, induces interaction with Src and regulates apoptosis.",
+            "key": "P00533-Y334->Q05655",
+            "source": "P00533",
+            "substratePhosphosite": "Y334",
+            "target": "Q05655"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of MST1 Thr-340 phosphorylation is unclear.",
+            "key": "O14757-T340->Q13043",
+            "source": "O14757",
+            "substratePhosphosite": "T340",
+            "target": "Q13043"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "Hck Tyr-411 phosphorylation is predicted to be stimulatory for phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
+            "key": "O14757-Y411->P08631",
+            "source": "O14757",
+            "substratePhosphosite": "Y411",
+            "target": "P08631"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of CLK3 Ser-157 phosphorylation is unclear.",
+            "key": "O14757-S157->P49761",
+            "source": "O14757",
+            "substratePhosphosite": "S157",
+            "target": "P49761"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of Chk1 Ser-291 phosphorylation is unclear.",
+            "key": "O14757-S291->O14757",
+            "source": "O14757",
+            "substratePhosphosite": "S291",
             "target": "O14757"
         },
         {
             "effectCode": "+",
-            "fullPhosphorylationEffect": "mTOR Ser-2448 phosphorylation stimulates phosphotransferase activity, and regulates intracellular location.",
-            "source": "P31749",
-            "substratePhosphosite": "S2448",
-            "target": "P42345"
-        },
-        {
-            "effectCode": "-",
-            "fullPhosphorylationEffect": "mTOR Thr-2446 phosphorylation inhibits phosphotransferase activity.",
-            "source": "P31749",
-            "substratePhosphosite": "T2446",
-            "target": "P42345"
-        },
-        {
-            "effectCode": "-",
-            "fullPhosphorylationEffect": "CK1d1 Ser-370 phosphorylation inhibits phosphotransferase activity.",
-            "source": "P31749",
-            "substratePhosphosite": "S370",
-            "target": "P48730"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "IKKa Thr-23 phosphorylation stimulates phosphotransferase activity, and regulates transcription and apoptosis.",
-            "source": "P31749",
-            "substratePhosphosite": "T23",
-            "target": "O15111"
-        },
-        {
-            "effectCode": "-",
-            "fullPhosphorylationEffect": "MST1 Thr-120 phosphorylation inhibits phosphotransferase activity and regulates apoptosis, and alters intracellular location.",
-            "source": "P31749",
-            "substratePhosphosite": "T120",
-            "target": "Q13043"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "MST1 Thr-387 phosphorylation stimulates phosphotransferase activity and inhibits proteolysis during apoptosis.",
-            "source": "P31749",
-            "substratePhosphosite": "T387",
-            "target": "Q13043"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "Akt1 Ser-246 phosphorylation stimulates phosphotransferase activity.",
-            "source": "P31749",
-            "substratePhosphosite": "S246",
-            "target": "P31749"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "Akt1 Ser-473 phosphorylation stimulates phosphotransferase activity and regulates cell cycle progression, and intracellular location.",
-            "source": "P31749",
-            "substratePhosphosite": "S473",
-            "target": "P31749"
-        },
-        {
-            "effectCode": "+",
-            "fullPhosphorylationEffect": "Akt1 Thr-72 phosphorylation stimulates phosphotransferase activity, and regulates apoptosis.",
-            "source": "P31749",
-            "substratePhosphosite": "T72",
-            "target": "P31749"
+            "fullPhosphorylationEffect": "Chk1 Ser-296 phosphorylation stimulates phosphotransferase activity, and regulates cell cycle, cell growth, alters intracellular location, and molecular association.",
+            "key": "O14757-S296->O14757",
+            "source": "O14757",
+            "substratePhosphosite": "S296",
+            "target": "O14757"
         },
         {
             "effectCode": "",
-            "fullPhosphorylationEffect": "The effect of PDHK1 Thr-346 phosphorylation is unclear.",
-            "source": "P31749",
-            "substratePhosphosite": "T346",
-            "target": "Q15118"
+            "fullPhosphorylationEffect": "The effect of Chk1 Ser-316 phosphorylation is unclear.",
+            "key": "O14757-S316->O14757",
+            "source": "O14757",
+            "substratePhosphosite": "S316",
+            "target": "O14757"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of CHED Ser-437 phosphorylation is unclear.",
+            "key": "O14757-S437->Q14004",
+            "source": "O14757",
+            "substratePhosphosite": "S437",
+            "target": "Q14004"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of MEK2 Thr-59 phosphorylation is unclear.",
+            "key": "O14757-T59->P36507",
+            "source": "O14757",
+            "substratePhosphosite": "T59",
+            "target": "P36507"
         },
         {
             "effectCode": "+",
-            "fullPhosphorylationEffect": "ZC3 Thr-187 phosphorylation is predicted to stimulate phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
-            "source": "Q8N4C8",
-            "substratePhosphosite": "T187",
-            "target": "Q8N4C8"
+            "fullPhosphorylationEffect": "BARK1 Ser-29 phosphorylation stimulates phosphotransferase activity.",
+            "key": "Q05655-S29->P25098",
+            "source": "Q05655",
+            "substratePhosphosite": "S29",
+            "target": "P25098"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "PKCd Ser-299 phosphorylation regulates intracellular location.",
+            "key": "Q05655-S299->Q05655",
+            "source": "Q05655",
+            "substratePhosphosite": "S299",
+            "target": "Q05655"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of PKCd Ser-302 phosphorylation is unclear.",
+            "key": "Q05655-S302->Q05655",
+            "source": "Q05655",
+            "substratePhosphosite": "S302",
+            "target": "Q05655"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of PKCd Ser-304 phosphorylation is unclear.",
+            "key": "Q05655-S304->Q05655",
+            "source": "Q05655",
+            "substratePhosphosite": "S304",
+            "target": "Q05655"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKCd Ser-503 phosphorylation stimulates phosphotransferase activity.",
+            "key": "Q05655-S503->Q05655",
+            "source": "Q05655",
+            "substratePhosphosite": "S503",
+            "target": "Q05655"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKCd Ser-645 phosphorylation stimulates phosphotransferase activity.",
+            "key": "Q05655-S645->Q05655",
+            "source": "Q05655",
+            "substratePhosphosite": "S645",
+            "target": "Q05655"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of PKCd Ser-664 phosphorylation is unclear.",
+            "key": "Q05655-S664->Q05655",
+            "source": "Q05655",
+            "substratePhosphosite": "S664",
+            "target": "Q05655"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKCd Thr-141 phosphorylation stimulates phosphotransferase activity.",
+            "key": "Q05655-T141->Q05655",
+            "source": "Q05655",
+            "substratePhosphosite": "T141",
+            "target": "Q05655"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of PKCd Thr-218 phosphorylation is unclear.",
+            "key": "Q05655-T218->Q05655",
+            "source": "Q05655",
+            "substratePhosphosite": "T218",
+            "target": "Q05655"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKCd Thr-295 phosphorylation stimulates phosphotransferase activity.",
+            "key": "Q05655-T295->Q05655",
+            "source": "Q05655",
+            "substratePhosphosite": "T295",
+            "target": "Q05655"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKCd Tyr-313 phosphorylation stimulates phosphotransferase activity, and regulates transcription and apoptosis.",
+            "key": "Q05655-Y313->Q05655",
+            "source": "Q05655",
+            "substratePhosphosite": "Y313",
+            "target": "Q05655"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKCd Tyr-334 phosphorylation stimulates phosphotransferase activity, induces interaction with Src and regulates apoptosis.",
+            "key": "Q05655-Y334->Q05655",
+            "source": "Q05655",
+            "substratePhosphosite": "Y334",
+            "target": "Q05655"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKG1 Thr-59 phosphorylation stimulates phosphotransferase activity.",
+            "key": "P17252-T59->Q13976",
+            "source": "P17252",
+            "substratePhosphosite": "T59",
+            "target": "Q13976"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKCb1 Thr-500 phosphorylation stimulates phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
+            "key": "P17252-T500->P05771",
+            "source": "P17252",
+            "substratePhosphosite": "T500",
+            "target": "P05771"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of InsR Ser-1062 phosphorylation is unclear.",
+            "key": "P17252-S1062->P06213",
+            "source": "P17252",
+            "substratePhosphosite": "S1062",
+            "target": "P06213"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of InsR Ser-1064 phosphorylation is unclear.",
+            "key": "P17252-S1064->P06213",
+            "source": "P17252",
+            "substratePhosphosite": "S1064",
+            "target": "P06213"
         },
         {
             "effectCode": "-",
-            "fullPhosphorylationEffect": "ZC3 Thr-191 phosphorylation is predicted to be inhibitory for phosphotransferase activity. This phosphosite is located in the kinase activation loop just before catalytic subdomain VIII.",
-            "source": "Q8N4C8",
-            "substratePhosphosite": "T191",
-            "target": "Q8N4C8"
+            "fullPhosphorylationEffect": "InsR Thr-1375 phosphorylation inhibits phosphotransferase activity.",
+            "key": "P17252-T1375->P06213",
+            "source": "P17252",
+            "substratePhosphosite": "T1375",
+            "target": "P06213"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of InsR Tyr-1062 phosphorylation is unclear.",
+            "key": "P17252-Y1062->P06213",
+            "source": "P17252",
+            "substratePhosphosite": "Y1062",
+            "target": "P06213"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of InsR Tyr-1064 phosphorylation is unclear.",
+            "key": "P17252-Y1064->P06213",
+            "source": "P17252",
+            "substratePhosphosite": "Y1064",
+            "target": "P06213"
+        },
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of InsR iso2 Thr-1363 phosphorylation is unclear.",
+            "key": "P17252-T1363->P06213",
+            "source": "P17252",
+            "substratePhosphosite": "T1363",
+            "target": "P06213"
         },
         {
             "effectCode": "-",
-            "fullPhosphorylationEffect": "ZC3 Tyr-193 phosphorylation is predicted to be inhibitory for phosphotransferase activity. This phosphosite is located in the kinase activation loop just before catalytic subdomain VIII.",
-            "source": "Q8N4C8",
-            "substratePhosphosite": "Y193",
-            "target": "Q8N4C8"
+            "fullPhosphorylationEffect": "EGFR Thr-678 phosphorylation inhibits phosphotransferase activity, and regulates receptor internalization, intracellular location, receptor desensitization, receptor recycling, protein degradation, cytoskeletal reorganization and molecular association.",
+            "key": "P17252-T678->P00533",
+            "source": "P17252",
+            "substratePhosphosite": "T678",
+            "target": "P00533"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "BARK1 Ser-29 phosphorylation stimulates phosphotransferase activity.",
+            "key": "P17252-S29->P25098",
+            "source": "P17252",
+            "substratePhosphosite": "S29",
+            "target": "P25098"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKCa Ser-657 phosphorylation stimulates phosphotransferase activity, protects against dephosphorylation of the T497 site, reduces the rate of degradation of PKC and regulates intracellular location.",
+            "key": "P17252-S657->P17252",
+            "source": "P17252",
+            "substratePhosphosite": "S657",
+            "target": "P17252"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "PKCa Thr-497 phosphorylation stimulates and is esential for phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
+            "key": "P17252-T497->P17252",
+            "source": "P17252",
+            "substratePhosphosite": "T497",
+            "target": "P17252"
         }
     ],
     "nodes": [
         {
-            "desc": "Protein kinase - Tyr (receptor), TK group, Tie family",
-            "id": "P35590",
+            "desc": "Protein kinase - Ser/Thr (non-receptor), STE group, STE20 family, MST subfamily",
+            "id": "Q13043",
             "isKinase": true,
-            "name": "TIE1",
+            "name": "STK4",
             "type": "Kinase"
         },
         {
-            "desc": "Protein kinase - Tyr (receptor), TK group, Eph family",
-            "id": "P29317",
+            "desc": "Protein kinase - Tyr (non-receptor), TK group, Src family",
+            "id": "P08631",
             "isKinase": true,
-            "name": "EPHA2",
+            "name": "HCK",
+            "type": "Kinase"
+        },
+        {
+            "desc": "Protein kinase - Ser/Thr (non-receptor), Other group, IKK family",
+            "id": "Q9UHD2",
+            "isKinase": true,
+            "name": "TBK1",
+            "type": "Kinase"
+        },
+        {
+            "desc": "Protein kinase - Ser/Thr (non-receptor)",
+            "id": "Q13976",
+            "isKinase": true,
+            "name": "PRKG1",
+            "type": "Kinase"
+        },
+        {
+            "desc": "Protein kinase - Ser/Thr (non-receptor), CMGC group, CLK family",
+            "id": "P49761",
+            "isKinase": true,
+            "name": "CLK3",
+            "type": "Ser/Thr Kinase"
+        },
+        {
+            "desc": "Protein kinase - Ser/Thr (non-receptor), AGC group, PKC family, Alpha subfamily",
+            "id": "P05771",
+            "isKinase": true,
+            "name": "PRKCB",
+            "type": "Kinase"
+        },
+        {
+            "desc": "Protein kinase - Tyr (receptor), TK group, InsR family",
+            "id": "P06213",
+            "isKinase": true,
+            "name": "INSR",
+            "type": "Kinase"
+        },
+        {
+            "desc": "Protein kinase - Tyr (receptor), TK group, EGFR family",
+            "id": "P00533",
+            "isKinase": true,
+            "name": "EGFR",
             "type": "Kinase"
         },
         {
@@ -970,122 +770,45 @@
             "type": "Kinase"
         },
         {
-            "desc": "Protein kinase - Ser/Thr/Tyr (non-receptor), dual-specificity, STE group, STE7 family",
-            "id": "Q02750",
+            "desc": "Protein kinase - Ser/Thr (non-receptor), AGC group, GRK family, BARK subfamily",
+            "id": "P25098",
             "isKinase": true,
-            "name": "MAP2K1",
+            "name": "GRK2",
             "type": "Kinase"
         },
         {
-            "desc": "Protein kinase - Ser/Thr (non-receptor), Autophagy; Atypical group, PIKK family, FRAP subfamily",
-            "id": "P42345",
+            "desc": "Protein kinase - Ser/Thr (non-receptor), CMGC group, CDK family, CRK7 subfamily; CDK/CRK7 subfamily",
+            "id": "Q14004",
             "isKinase": true,
-            "name": "MTOR",
+            "name": "CDK13",
             "type": "Kinase"
         },
         {
-            "desc": "Protein kinase - Ser/Thr (non-receptor), Other group, AUR family",
-            "id": "Q96GD4",
+            "desc": "Protein kinase - Ser/Thr (non-receptor), TKL group, LRRK family, N/A subfamily",
+            "id": "Q38SD2",
             "isKinase": true,
-            "name": "AURKB",
+            "name": "LRRK1",
             "type": "Kinase"
         },
         {
-            "desc": "Protein kinase - Ser/Thr (non-receptor), CK1 group, CK1 family",
-            "id": "P48730",
+            "desc": "Protein kinase - Ser/Thr/Tyr (non-receptor), dual-specificity, STE\u00a0group, STE7\u00a0family, N/A\u00a0subfamily",
+            "id": "P36507",
             "isKinase": true,
-            "name": "CSNK1D",
+            "name": "MAP2K2",
             "type": "Kinase"
         },
         {
-            "desc": "Protein kinase - Ser/Thr (non-receptor), Other group, IKK family",
-            "id": "O15111",
+            "desc": "Protein kinase - Ser/Thr (non-receptor), AGC group, PKC family, Delta subfamily",
+            "id": "Q05655",
             "isKinase": true,
-            "name": "CHUK",
+            "name": "PRKCD",
             "type": "Kinase"
         },
         {
             "desc": "Protein kinase - Ser/Thr (non-receptor), AGC group, PKC family, Alpha subfamily",
-            "id": "P05771",
+            "id": "P17252",
             "isKinase": true,
-            "name": "PRKCB",
-            "type": "Kinase"
-        },
-        {
-            "desc": "Protein kinase - Ser/Thr (non-receptor), TKL group, LRRK family",
-            "id": "Q5S007",
-            "isKinase": true,
-            "name": "LRRK2",
-            "type": "Kinase"
-        },
-        {
-            "desc": "Protein kinase - Ser/Thr (non-receptor), STE group, STE20 family, MST subfamily",
-            "id": "Q13043",
-            "isKinase": true,
-            "name": "STK4",
-            "type": "Kinase"
-        },
-        {
-            "desc": "Protein kinase - Ser/Thr (non-receptor), Other group, NEK family",
-            "id": "Q8NG66",
-            "isKinase": true,
-            "name": "NEK11",
-            "type": "Kinase"
-        },
-        {
-            "desc": "Protein kinase - Ser/Thr (non-receptor), TKL group, RAF family",
-            "id": "P10398",
-            "isKinase": true,
-            "name": "ARAF",
-            "type": "Kinase"
-        },
-        {
-            "desc": "Protein kinase - Ser/Thr (non-receptor), STE group, STE20 family, PAKA subfamily",
-            "id": "O75914",
-            "isKinase": true,
-            "name": "PAK3",
-            "type": "Kinase"
-        },
-        {
-            "desc": "Protein kinase - Ser/Thr (non-receptor), Other group, CAMKK family, Meta subfamily",
-            "id": "Q96RR4",
-            "isKinase": true,
-            "name": "CAMKK2",
-            "type": "Kinase"
-        },
-        {
-            "desc": "Protein kinase - Ser/Thr (non-receptor), STE group, STE20 family, FRAY subfamily",
-            "id": "O95747",
-            "isKinase": true,
-            "name": "OXSR1",
-            "type": "Kinase"
-        },
-        {
-            "desc": "Protein kinase - Ser/Thr (non-receptor), AGC group, AKT family, Nuclear receptor co-regulator",
-            "id": "P31749",
-            "isKinase": true,
-            "name": "AKT1",
-            "type": "Kinase"
-        },
-        {
-            "desc": "Protein kinase - Ser/Thr (non-receptor), STE group, STE20 family, MSN subfamily",
-            "id": "Q8N4C8",
-            "isKinase": true,
-            "name": "MINK1",
-            "type": "Kinase"
-        },
-        {
-            "desc": "Protein kinase - Ser/Thr (non-receptor), CMGC group, MAPK family, ERK subfamily",
-            "id": "P31152",
-            "isKinase": true,
-            "name": "MAPK4",
-            "type": "Ser/Thr Kinase"
-        },
-        {
-            "desc": "Protein kinase - Ser/Thr (non-receptor), Atypical group, PDHK family",
-            "id": "Q15118",
-            "isKinase": true,
-            "name": "PDK1",
+            "name": "PRKCA",
             "type": "Kinase"
         }
     ]
