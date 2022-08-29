@@ -1,0 +1,52 @@
+{
+    "links": [
+        {
+            "effectCode": "",
+            "fullPhosphorylationEffect": "The effect of Yes Tyr-32 phosphorylation is unclear.",
+            "key": "P07947-Y32->P07947",
+            "source": "P07947",
+            "substratePhosphosite": "Y32",
+            "target": "P07947"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "Yes Tyr-426 phosphorylation stimulates phosphotransferase activity. This phosphosite is located in the kinase activation loop between catalytic subdomains VII and VIII.",
+            "key": "P07947-Y426->P07947",
+            "source": "P07947",
+            "substratePhosphosite": "Y426",
+            "target": "P07947"
+        },
+        {
+            "effectCode": "-",
+            "fullPhosphorylationEffect": "Yes Tyr-537 phosphorylation inhibits phosphotransferase activity.",
+            "key": "P41240-Y537->P07947",
+            "source": "P41240",
+            "substratePhosphosite": "Y537",
+            "target": "P07947"
+        },
+        {
+            "effectCode": "+",
+            "fullPhosphorylationEffect": "CSK Tyr-304 phosphorylation stimulates phosphotransferase activity.",
+            "key": "P41240-Y304->P41240",
+            "source": "P41240",
+            "substratePhosphosite": "Y304",
+            "target": "P41240"
+        }
+    ],
+    "nodes": [
+        {
+            "desc": "Protein kinase - Tyr (non-receptor), TK group, Src family",
+            "id": "P07947",
+            "isKinase": true,
+            "name": "YES1",
+            "type": "Kinase"
+        },
+        {
+            "desc": "Protein kinase - Tyr (non-receptor), TK group, Csk family",
+            "id": "P41240",
+            "isKinase": true,
+            "name": "CSK",
+            "type": "Kinase"
+        }
+    ]
+}

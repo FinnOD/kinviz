@@ -1,31 +1,27 @@
 import React, { useState } from "react";
-// import { GraphData } from "react-force-graph-3d";
 import { MenuOutlined } from "@ant-design/icons";
 import { Button, Drawer, Slider, Switch, Divider } from "antd";
 //user
 import "./App.css";
-import DynamicGraph, { GraphData } from "./DynGraphGraphology";
+import DynamicGraph, { GraphData } from "./DynGraph";
 import NetworkSelect from "./NetworkSelect";
 import DataUpload, { FCData } from "./UploadComponent";
 //data
+import networkKinasesTiny from "./data/networkKinasesTiny.json";
 import networkKinasesSmall from "./data/networkKinasesSmall.json";
 import networkKinasesMedium from "./data/networkKinasesMedium.json";
 import networkKinasesOnly from "./data/networkKinasesOnly.json";
 import network from "./data/network.json";
-// import example from "./data/example.json";
-import example2 from "./data/example2.json";
 
 
 
 const networks: Record<string, GraphData> = {
-	"Example 2": example2,
+	"Tiny Kinase Subset": networkKinasesTiny,
 	"Small Kinase Subset": networkKinasesSmall,
 	"Medium Kinase Subset": networkKinasesMedium,
 	"All Kinases": networkKinasesOnly,
 	// @ts-ignore network file is too large and compiler throws an error
 	"Full network": network,
-	// "Example 1": example,
-	
 };
 
 function App() {
@@ -54,9 +50,13 @@ function App() {
 		setShowSelfLoops(checked);
 	};
 
+	const [is3D, setIs3D] = useState(true);
+	const on3DChange = (checked: boolean) => {
+		setIs3D(checked);
+	};
+
 	// Network select
 	// Use the first network in the dict.
-	// eslint-disable-next-line
 	const [selectedNetworkName, setSelectedNetworkName] = useState(Object.keys(networks)[0]);
 
 	// Graph
@@ -82,6 +82,8 @@ function App() {
 						showSelfLoops={showSelfLoops}
 						curveAmount={curveAmount}
 						fcData={fcData}
+						is3D={is3D}
+						change3D={on3DChange}
 					/>
 				</div>
 			</div>
@@ -102,6 +104,16 @@ function App() {
 						setData(networks[selectedVal]);
 					}}
 				></NetworkSelect>
+				<p />
+				Display Dimension
+				<Switch
+						defaultChecked
+						checkedChildren="3D"
+						unCheckedChildren="2D" 
+						checked={is3D}
+						onChange={on3DChange}
+						style={{ float: "right" }}
+					/>
 				<p />
 				Fold-Change Data
 				<br />

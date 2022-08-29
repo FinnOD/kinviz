@@ -1,299 +1,223 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
-import ForceGraph3D from "react-force-graph-3d";
+import React, { useState, useRef, useEffect } from "react";
 import { useWindowSize } from "usehooks-ts";
-import {renderToString} from "react-dom/server";
+import { MultiDirectedGraph } from "graphology";
 
-import { FCData, FCEntry } from "./UploadComponent";
+import { FCData } from "./UploadComponent";
+import Graph3D from "./Graph3D";
+import Graph2D from "./Graph2D";
 
-export type NodeObject = object & {
-	id?: string | number;
-	x?: number;
-	y?: number;
-	z?: number;
-	vx?: number;
-	vy?: number;
-	vz?: number;
-	fx?: number;
-	fy?: number;
-	fz?: number;
+export type NodeInput = {
+	id: string;
+	desc: string;
+	name: string;
+	isKinase: boolean;
+	type: string;
 };
 
-export type LinkObject = object & {
-	source?: string | number | NodeObject;
-	target?: string | number | NodeObject;
-	substratePhosphosite?: string;
+export type LinkInput = {
+	key: string;
+	source: string | NodeInput;
+	target: string | NodeInput;
+	substratePhosphosite: string;
+	effectCode: string; // "+" | "-" | "",
+	fullPhosphorylationEffect: string;
 };
 
-export interface MyGraphData {
-	nodes: NodeObject[];
-	links: LinkObject[];
+export interface GraphData {
+	nodes: NodeInput[];
+	links: LinkInput[];
 }
 
-//TODO wtf
-//Turns a link into a tuple of [sourceID, targetID]
-function coerceLink(link: LinkObject): [string, string] {
-	var src: string;
-	if (link.source === undefined) src = "undefined";
-	else if (typeof link.source === "string" || typeof link.source === "number")
-		src = String(link.source);
-	else if (link.source === undefined) src = "undefined";
-	else src = String(link.source.id);
-
-	var tgt: string;
-	if (link.target === undefined) tgt = "undefined";
-	else if (typeof link.target === "string" || typeof link.target === "number")
-		tgt = String(link.target);
-	else if (link.target === undefined) tgt = "undefined";
-	else tgt = String(link.target.id);
-
-	return [src, tgt];
+function idPair(attr: any): [string, string] {
+	let source = typeof attr.source === "string" ? attr.source : attr.source.id;
+	let target = typeof attr.target === "string" ? attr.target : attr.target.id;
+	return [source, target];
 }
 
-function linkID(link: LinkObject): string {
-	var tup = coerceLink(link);
-	var sortedHeadTail = [tup[0], tup[1]].sort();
-	return "".concat(sortedHeadTail[0], "_", sortedHeadTail[1]);
-}
+function calculateCurveRotVis(G: MultiDirectedGraph): any {
+	function linkID(attr: any): string {
+		let sorted = idPair(attr).sort();
+		return "".concat(sorted[0], "_", sorted[1]);
+	}
 
-// function linkIDUnsorted(link: LinkObject): string {
-// 	var tup = coerceLink(link);
-// 	return "".concat(tup[0], "_", tup[1]);
-// }
-
-type CurveRotFirst = { rot: number; curve: number; isFirst: boolean };
-function getCurveAndRotation(link: LinkObject, i: number, allLinks: Array<string>): CurveRotFirst {
 	const collator = new Intl.Collator("en", {
 		numeric: true,
 		sensitivity: "base",
 	});
-	const tup = coerceLink(link);
-	const isAntiAlphabetical = collator.compare(tup[0], tup[1]);
-	let numMatches = allLinks.filter((x: string) => x === linkID(link)).length;
-	let numBefore = allLinks.slice(0, i).filter((x: string) => x === linkID(link)).length;
 
-	let curve = 0;
-	let rot = 0;
-	if (numMatches > 1) {
-		curve = 0.5;
-		rot = (numBefore / numMatches) * 2 * Math.PI;
+	let allLinks = G.mapEdges((edge, attr) => linkID(attr));
 
-		if (isAntiAlphabetical === 1) {
-			// if it IS backwards (b -> a) another 180 degree rotation works
-			rot = Math.PI - rot;
+	let i = 0;
+	G.updateEachEdgeAttributes((edge, attr) => {
+		const [source, target] = idPair(attr);
+		const isAntiAlphabetical = collator.compare(source, target);
+		let numMatches = allLinks.filter((x: string) => x === linkID(attr)).length;
+		let numBefore = allLinks.slice(0, i).filter((x: string) => x === linkID(attr)).length;
+
+		let curve = 0;
+		let rot = 0;
+		if (numMatches > 1) {
+			curve = 0.5;
+			rot = (numBefore / numMatches) * 2 * Math.PI;
+
+			if (isAntiAlphabetical === 1) {
+				// if it IS backwards (b -> a) another 180 degree rotation works
+				rot = Math.PI - rot;
+			}
 		}
-	}
-	if (isAntiAlphabetical === 0) {
-		// if self loop
-		curve = 1;
-	}
+		if (isAntiAlphabetical === 0) {
+			// if self loop
+			curve = 0.5;
+		}
 
-	return { rot: rot, curve: curve, isFirst: numBefore === 0 };
+		i += 1;
+		return { curve: curve, rotation: rot, isFirstLink: numBefore === 0, ...attr };
+	});
+
+	return G;
 }
 
-//Components TODO? new file
-const NodeLabel = (props: { node: any }) => {
-	return (
-		<div className="nodeLabel">
-			<b>{props.node.name}</b>
-			<p />
-			{props.node.id}: {props.node.desc}.
-		</div>
-	);
-};
+function dataGraphToGraphology(graphData: GraphData): MultiDirectedGraph {
+	let G = new MultiDirectedGraph();
 
-const LinkLabel = (props: { link: any; nodeList: Array<NodeObject>, linkAttr: any}) => {
-
-	return (
-		<div className="linkLabel">
-			<b>
-				
-				{props.link.source.name} ⟶ {props.link.target.name}
-				<br/>
-				{props.linkAttr.fc !== undefined && <>FC: {Math.round((props?.linkAttr?.fc + Number.EPSILON) * 100) / 100}</>}
-				<br/>
-				Site: {props.link.substratePhosphosite}{" "}
-				{props.link.effectCode !== "" && <>Effect: {props.link.effectCode}</>}
-			</b>
-			<p />
-			{props.link.fullPhosphorylationEffect}
-		</div>
-	);
-};
-
-type LinkAttrs = Array<{
-	index: number;
-	curve: number;
-	rot: number;
-	firstLink: boolean;
-	fc?: number;
-	err?: number;
-}>;
-
-const DynamicGraph = (props: {
-	graphData: MyGraphData;
-	showSelfLoops: boolean;
-	curveAmount: number;
-	fcData: FCData | undefined;
-}) => {
-	// console.log('render graph');
-	//Node focus magic
-	const fgRef = useRef<any>();
-	const handleNodeClick = useCallback(
-		(node) => {
-			if (fgRef.current === undefined) return;
-
-			// Aim at node from outside it
-			const distance = 40;
-			const distRatio = 2 + distance / Math.hypot(node.x, node.y, node.z);
-
-			fgRef.current.cameraPosition(
-				{ x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, // new position
-				node, // lookAt ({ x, y, z })
-				3000 // ms transition duration
-			);
+	G.import({
+		attributes: {
+			name: "My Graph",
 		},
-		[fgRef]
-	);
-	
+		options: {
+			allowSelfLoops: true,
+			multi: true,
+			type: "directed",
+		},
+		nodes: graphData.nodes.map((n) => {
+			return { key: n.id, attributes: { ...n } };
+		}),
+		edges: graphData.links.map((l) => {
+			let sourceID = typeof l.source === "string" ? l.source : l.source.id;
+			let targetID = typeof l.target === "string" ? l.target : l.target.id;
+			return {
+				key: l.key,
+				source: sourceID,
+				target: targetID,
+				undirected: false,
+				attributes: { ...l },
+			};
+		}),
+	});
 
-	
-	// Handle graph change and calculate edge curve, rotation and visiblity
-	const [attrs, updateAttrs] = useState<LinkAttrs>();
-	useEffect(() => {
-		const allLinks = props.graphData.links.map((l) => linkID(l));
+	return G;
+}
 
-		let arrayAttrs = props.graphData.links.map((l, i) => {
-			let curRot = getCurveAndRotation(l, i, allLinks);
-			return { index: i, curve: curRot.curve, rot: curRot.rot, firstLink: curRot.isFirst };
+function addFCtoG(G: MultiDirectedGraph, fcData: FCData | undefined): MultiDirectedGraph {
+	if (fcData === undefined) {
+		G.updateEachEdgeAttributes((edge, attr) => {
+			attr.fc = undefined;
+			attr.err = undefined;
+			return attr;
 		});
-
-		updateAttrs(arrayAttrs);
-	}, [props.graphData]);
-
-	// Handle fcData input and removal
-	useEffect(() => {
-		console.log(attrs === undefined, props.graphData === undefined, props.fcData === undefined)
-		if (
-			attrs === undefined ||
-			props.graphData === undefined
-		)
-			return;
-		
-		if(props.fcData === undefined){
-			let arrayAttrs = attrs.map((l) => {
-				return { fc: undefined, err: undefined, ...l };
-			});
-			updateAttrs(arrayAttrs);
-			console.log('returning empty fc attrs');
-			console.log(attrs);
-			return;
-		}
-		
-		let panSpecificFirst = props.fcData.sort((x, y) =>
+		return G;
+	} else {
+		let panSpecificFirst = fcData?.sort((x, y) =>
 			x.site === y.site ? 0 : x.site === "Pan-specific" ? -1 : 1
 		);
 
-		let arrayAttrs = attrs.map((l) => {
-			let tgt:any = props.graphData.links[l.index].target;
-			let site = props.graphData.links[l.index].substratePhosphosite;
-			let foundFC: FCEntry | undefined = panSpecificFirst
+		G.updateEachEdgeAttributes((edge, attr) => {
+			let target = idPair(attr)[1];
+			let foundFC = panSpecificFirst
 				.slice()
-				// .reverse()
-				.find((fcEntry) => fcEntry.targetid === tgt.id);
-			let betterMatch: FCEntry | undefined = panSpecificFirst
+				.find((fcEntry: any) => fcEntry.targetid === target);
+			let betterMatch = panSpecificFirst
 				.slice()
-				// .reverse()
-				.find((fcEntry) => fcEntry.targetid === tgt.id && fcEntry.site === site);
+				.find(
+					(fcEntry: any) =>
+						fcEntry.targetid === target && fcEntry.site === attr.substratePhosphosite
+				);
 			if (betterMatch !== undefined) foundFC = betterMatch;
-		
-			return { fc: foundFC?.fc, err: foundFC?.err, ...l };
+
+			attr.fc = foundFC?.fc;
+			attr.err = foundFC?.err;
+			return attr;
 		});
+		return G;
+	}
+}
 
-		updateAttrs(arrayAttrs)
-		console.log('returning full fc attrs');
-		console.log(attrs);
-		return;
-	}, [props.fcData, props.graphData]);
+const DynamicGraph = (props: {
+	graphData: GraphData;
+	showSelfLoops: boolean;
+	curveAmount: number;
+	fcData: FCData | undefined;
+	is3D: boolean;
+	change3D: (checked: boolean) => void;
+}) => {
+	// Node focus magic
+	const fgRef = useRef<any>();
 
-	const isLinkVisible = (link: LinkObject, isFirstLink: boolean) => {
-		let canVis = link.source !== link.target || props.showSelfLoops;
-		if (props.curveAmount > 0) return canVis;
-		return (isFirstLink || link.source === link.target) && canVis;
-	};
+	//compute graphData to graphology Graph and set default state to run only first render
+	const [graphMix, updateGraphMix] = useState<{ graphData: GraphData; G: MultiDirectedGraph }>(() => {
+		const newG = calculateCurveRotVis(dataGraphToGraphology(props.graphData).copy());
+		const newGWithFC = addFCtoG(newG.copy(), props.fcData);
+		return {graphData: props.graphData, G: newGWithFC};
+	});
+	useEffect(() => {
+		//Generate Graphology representation and layout properties
+		let newG = calculateCurveRotVis(dataGraphToGraphology(props.graphData).copy());
 
-	const [hoveredNode, setHoveredNode] = useState<NodeObject | null>(null);
-	const [hoveredLink, setHoveredLink] = useState<LinkObject | null>(null);
+		// update the fcLookup for the new dataset
+		let newGWithFC = addFCtoG(newG.copy(), props.fcData);
+
+		updateGraphMix({ graphData: props.graphData, G: newGWithFC });
+	}, [props.graphData]);
+	//ate 'updateGraphMix(g => ...)' if you only
+	useEffect(() => {
+		if (graphMix?.G === undefined) return;
+
+		let newGWithFC = addFCtoG(graphMix.G.copy(), props.fcData);
+
+		updateGraphMix(prevGraphMix => {return {...prevGraphMix, G: newGWithFC };});
+	}, [props.fcData]);
+
+	const [hoveredNode, setHoveredNode] = useState(null);
+	const [hoveredLink, setHoveredLink] = useState(null);
 
 	const { width, height } = useWindowSize();
 
-	return (
-		<ForceGraph3D
-			//Basic Props
-			backgroundColor="#0f1320"
-			graphData={props.graphData}
-			ref={fgRef}
-			width={width}
-			height={height}
-			//Node props
-			nodeLabel={(n: any) => renderToString(<NodeLabel node={n} />)}
-			onNodeClick={handleNodeClick}
-			onNodeHover={(n: NodeObject | null) => setHoveredNode(n)}
-			nodeColor={(n: NodeObject | null) => (n === hoveredNode ? "#FF964D" : "#F0B648")}
-			//Link props
-			linkLabel={(l: any) => {
-				let outAttr = undefined;
-				if(attrs  !== undefined)
-					outAttr = attrs[props.graphData.links.indexOf(l)];
-
-				return renderToString(
-					<LinkLabel link={l} linkAttr={outAttr} nodeList={props.graphData.nodes} />
-				)}
-			}
-			linkHoverPrecision={5}
-			linkWidth={(l: LinkObject) => {
-				if (attrs === undefined) return 2;
-				let p = attrs[props.graphData.links.indexOf(l)].fc?? 0.2;
-				return Math.max(0.01, 2*Math.abs(p));
-			}}
-			onLinkHover={(l: LinkObject | null) => setHoveredLink(l)}
-			linkColor={(l: LinkObject) => {
-				let hovCol = (l === hoveredLink ? "#FF964D" : "#9DAABC")
-				if (attrs === undefined)
-					return hovCol;
-				let fc = attrs[props.graphData.links.indexOf(l)].fc;
-				if(fc === undefined)
-					return hovCol;
-				return (l === hoveredLink) ? '#F0B648' : (fc > 0)? '#FF964D' : '#2A729A';
-			}}
-			linkDirectionalArrowLength={3.5}
-			linkDirectionalArrowRelPos={1}
-			linkDirectionalParticles=
-				{(l: LinkObject) => {
-					if (attrs === undefined) return 0;
-					let p = attrs[props.graphData.links.indexOf(l)].fc?? 0;
-					if(p ===0 )return 0;
-					return Math.max(0, 3+p);
-				}}
-			
-			linkCurvature={(l: LinkObject) => {
-				if (attrs === undefined) return props.curveAmount / 100;
-				let c = attrs[props.graphData.links.indexOf(l)].curve;
-				c = Math.max((c * props.curveAmount) / 100, l.source !== l.target ? 0 : 0.2);
-				return c;
-			}}
-			linkCurveRotation={(l: LinkObject) => {
-				if (attrs === undefined) return 0;
-				return attrs[props.graphData.links.indexOf(l)].rot;
-			}}
-			linkVisibility={(l: LinkObject) => {
-				if (attrs === undefined) return true;
-				let ats = attrs[props.graphData.links.indexOf(l)]
-				// console.log(ats);
-				return isLinkVisible(l, ats.firstLink);// && (ats.fc !== undefined);
-			}}
-			linkOpacity={0.5}
-			
-		/>
-	);
+	if (graphMix?.G === undefined || graphMix?.graphData === undefined) {
+		console.log(graphMix);
+		console.log('GraphMix undefined, returning <></>');
+		return <></>;
+	}
+	if (props.is3D)
+		return (
+			<Graph3D
+				graphData={graphMix.graphData}
+				G={graphMix.G}
+				fgRef={fgRef}
+				width={width}
+				height={height}
+				setHoveredNode={setHoveredNode}
+				hoveredNode={hoveredNode}
+				setHoveredLink={setHoveredLink}
+				hoveredLink={hoveredLink}
+				curveAmount={props.curveAmount}
+				showSelfLoops={props.showSelfLoops}
+			/>
+		);
+	else
+		return (
+			<Graph2D
+				graphData={graphMix.graphData}
+				G={graphMix.G}
+				fgRef={fgRef}
+				width={width}
+				height={height}
+				setHoveredNode={setHoveredNode}
+				hoveredNode={hoveredNode}
+				setHoveredLink={setHoveredLink}
+				hoveredLink={hoveredLink}
+				curveAmount={props.curveAmount}
+				showSelfLoops={props.showSelfLoops}
+			/>
+		);
 };
 export default DynamicGraph;
