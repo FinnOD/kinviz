@@ -28,6 +28,8 @@ export interface GraphData {
 	links: LinkInput[];
 }
 
+
+
 function idPair(attr: any): [string, string] {
 	let source = typeof attr.source === "string" ? attr.source : attr.source.id;
 	let target = typeof attr.target === "string" ? attr.target : attr.target.id;
@@ -154,11 +156,13 @@ const DynamicGraph = (props: {
 	const fgRef = useRef<any>();
 
 	//compute graphData to graphology Graph and set default state to run only first render
-	const [graphMix, updateGraphMix] = useState<{ graphData: GraphData; G: MultiDirectedGraph }>(() => {
-		const newG = calculateCurveRotVis(dataGraphToGraphology(props.graphData).copy());
-		const newGWithFC = addFCtoG(newG.copy(), props.fcData);
-		return {graphData: props.graphData, G: newGWithFC};
-	});
+	const [graphMix, updateGraphMix] = useState<{ graphData: GraphData; G: MultiDirectedGraph }>(
+		() => {
+			const newG = calculateCurveRotVis(dataGraphToGraphology(props.graphData).copy());
+			const newGWithFC = addFCtoG(newG.copy(), props.fcData);
+			return { graphData: props.graphData, G: newGWithFC };
+		}
+	);
 	useEffect(() => {
 		//Generate Graphology representation and layout properties
 		let newG = calculateCurveRotVis(dataGraphToGraphology(props.graphData).copy());
@@ -174,17 +178,27 @@ const DynamicGraph = (props: {
 
 		let newGWithFC = addFCtoG(graphMix.G.copy(), props.fcData);
 
-		updateGraphMix(prevGraphMix => {return {...prevGraphMix, G: newGWithFC };});
+		updateGraphMix((prevGraphMix) => {
+			return { ...prevGraphMix, G: newGWithFC };
+		});
 	}, [props.fcData]);
 
 	const [hoveredNode, setHoveredNode] = useState(null);
 	const [hoveredLink, setHoveredLink] = useState(null);
+	// const [nodeRightClickedCoordinates, setNodeRightClickedCoordinates] = useState(null);
+	// const handleNodeRightClick = (node, event) => {
+	// 	if (node) {
+	// 		setNodeRightClickedCoordinates(
+	// 			fgRef.current ? fgRef.current.graph2ScreenCoords(node.x, node.y) : null
+	// 		);
+	// 	}
+	// };
 
 	const { width, height } = useWindowSize();
 
 	if (graphMix?.G === undefined || graphMix?.graphData === undefined) {
 		console.log(graphMix);
-		console.log('GraphMix undefined, returning <></>');
+		console.log("GraphMix undefined, returning <></>");
 		return <></>;
 	}
 	if (props.is3D)
