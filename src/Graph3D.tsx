@@ -1,7 +1,7 @@
 import { MultiDirectedGraph } from "graphology";
 import { useCallback } from "react";
 import { renderToString } from "react-dom/server";
-import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
+import ForceGraph3D, { ForceGraphMethods, NodeObject } from "react-force-graph-3d";
 
 import { GraphData, LinkInput, NodeInput } from "./DynGraph";
 import { NodeLabel, LinkLabel } from "./GraphLabels";
@@ -10,6 +10,8 @@ export default function Graph3D(props: {
 	graphData: GraphData;
 	G: MultiDirectedGraph;
 	fgRef: React.MutableRefObject<ForceGraphMethods | undefined> | undefined;
+	handleNodeRightClick: (node: NodeObject, event: MouseEvent) => void;
+	onNodeHoverOff: () => void;
 	width: number;
 	height: number;
 	setHoveredNode: any; //(node: NodeInput | null) => void;
@@ -19,8 +21,7 @@ export default function Graph3D(props: {
 	curveAmount: number;
 	showSelfLoops: boolean;
 }) {
-
-    const handleNodeClick = useCallback(
+	const handleNodeClick = useCallback(
 		(node) => {
 			if (props.fgRef?.current === undefined) return;
 
@@ -37,7 +38,6 @@ export default function Graph3D(props: {
 		[props.fgRef]
 	);
 
-
 	return (
 		<ForceGraph3D
 			//Basic Props
@@ -46,13 +46,17 @@ export default function Graph3D(props: {
 			ref={props.fgRef}
 			width={props.width}
 			height={props.height}
-			
+			//
 			// Node props
 			nodeLabel={(n: any) =>
 				renderToString(<NodeLabel node={props.G?.getNodeAttributes(n.id)} />)
 			}
 			onNodeClick={handleNodeClick}
-			onNodeHover={(n) => props.setHoveredNode(n)}
+			onNodeRightClick={props.handleNodeRightClick}
+			onNodeHover={(node: NodeObject | null, previousNode: NodeObject | null) => {
+				props.setHoveredNode(node);
+				if (previousNode && !node) props.onNodeHoverOff(); //node was just hovered off
+			}}
 			nodeColor={(n: any) => (n === props.hoveredNode ? "#FF964D" : "#F0B648")}
 			//
 			// Link props

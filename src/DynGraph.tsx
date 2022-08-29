@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useWindowSize } from "usehooks-ts";
 import { MultiDirectedGraph } from "graphology";
+import { Dropdown } from "antd";
+import { NodeObject, LinkObject } from "react-force-graph-3d";
 
 import { FCData } from "./UploadComponent";
 import Graph3D from "./Graph3D";
 import Graph2D from "./Graph2D";
+import NodeMenu from "./NodeMenu";
 
 export type NodeInput = {
 	id: string;
@@ -27,8 +30,6 @@ export interface GraphData {
 	nodes: NodeInput[];
 	links: LinkInput[];
 }
-
-
 
 function idPair(attr: any): [string, string] {
 	let source = typeof attr.source === "string" ? attr.source : attr.source.id;
@@ -183,16 +184,23 @@ const DynamicGraph = (props: {
 		});
 	}, [props.fcData]);
 
-	const [hoveredNode, setHoveredNode] = useState(null);
-	const [hoveredLink, setHoveredLink] = useState(null);
-	// const [nodeRightClickedCoordinates, setNodeRightClickedCoordinates] = useState(null);
-	// const handleNodeRightClick = (node, event) => {
-	// 	if (node) {
-	// 		setNodeRightClickedCoordinates(
-	// 			fgRef.current ? fgRef.current.graph2ScreenCoords(node.x, node.y) : null
-	// 		);
-	// 	}
-	// };
+	const [hoveredNode, setHoveredNode] = useState<NodeInput | null>(null);
+	const [hoveredLink, setHoveredLink] = useState<LinkInput | null>(null);
+
+	const [rightClickedNode, setRightClickedNode] = useState<NodeInput | null>(null);
+	const [dropdownVisible, setDropdownVisible] = useState(false);
+	const handleDropdownChange = (visible: boolean) => {
+		if (!visible) setDropdownVisible(false);
+	};
+	const handleNodeRightClick = (node: any) => {
+		if (node) {
+			setRightClickedNode(node);
+			setDropdownVisible(true);
+		} else {
+			setRightClickedNode(null);
+			setDropdownVisible(false);
+		}
+	};
 
 	const { width, height } = useWindowSize();
 
@@ -201,37 +209,50 @@ const DynamicGraph = (props: {
 		console.log("GraphMix undefined, returning <></>");
 		return <></>;
 	}
-	if (props.is3D)
-		return (
-			<Graph3D
-				graphData={graphMix.graphData}
-				G={graphMix.G}
-				fgRef={fgRef}
-				width={width}
-				height={height}
-				setHoveredNode={setHoveredNode}
-				hoveredNode={hoveredNode}
-				setHoveredLink={setHoveredLink}
-				hoveredLink={hoveredLink}
-				curveAmount={props.curveAmount}
-				showSelfLoops={props.showSelfLoops}
-			/>
-		);
-	else
-		return (
-			<Graph2D
-				graphData={graphMix.graphData}
-				G={graphMix.G}
-				fgRef={fgRef}
-				width={width}
-				height={height}
-				setHoveredNode={setHoveredNode}
-				hoveredNode={hoveredNode}
-				setHoveredLink={setHoveredLink}
-				hoveredLink={hoveredLink}
-				curveAmount={props.curveAmount}
-				showSelfLoops={props.showSelfLoops}
-			/>
-		);
+
+	let graphElement = props.is3D ? (
+		<Graph3D
+			graphData={graphMix.graphData}
+			G={graphMix.G}
+			fgRef={fgRef}
+			handleNodeRightClick={handleNodeRightClick}
+			width={width}
+			height={height}
+			setHoveredNode={setHoveredNode}
+			onNodeHoverOff={() => handleNodeRightClick(null)}
+			hoveredNode={hoveredNode}
+			setHoveredLink={setHoveredLink}
+			hoveredLink={hoveredLink}
+			curveAmount={props.curveAmount}
+			showSelfLoops={props.showSelfLoops}
+		/>
+	) : (
+		<Graph2D
+			graphData={graphMix.graphData}
+			G={graphMix.G}
+			fgRef={fgRef}
+			handleNodeRightClick={handleNodeRightClick}
+			width={width}
+			height={height}
+			setHoveredNode={setHoveredNode}
+			onNodeHoverOff={() => handleNodeRightClick(null)}
+			hoveredNode={hoveredNode}
+			setHoveredLink={setHoveredLink}
+			hoveredLink={hoveredLink}
+			curveAmount={props.curveAmount}
+			showSelfLoops={props.showSelfLoops}
+		/>
+	);
+
+	return (
+		<Dropdown
+			overlay={<NodeMenu targetNode={rightClickedNode}></NodeMenu>}
+			trigger={["contextMenu"]}
+			visible={dropdownVisible}
+			onVisibleChange={handleDropdownChange}
+		>
+			<div className="maingraph">{graphElement}</div>
+		</Dropdown>
+	);
 };
 export default DynamicGraph;

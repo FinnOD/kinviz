@@ -13,8 +13,6 @@ import networkKinasesMedium from "./data/networkKinasesMedium.json";
 import networkKinasesOnly from "./data/networkKinasesOnly.json";
 import network from "./data/network.json";
 
-
-
 const networks: Record<string, GraphData> = {
 	"Tiny Kinase Subset": networkKinasesTiny,
 	"Small Kinase Subset": networkKinasesSmall,
@@ -76,16 +74,15 @@ function App() {
 						onClick={showDrawer}
 					/>
 				</div>
-				<div className="maingraph">
-					<DynamicGraph
-						graphData={data}
-						showSelfLoops={showSelfLoops}
-						curveAmount={curveAmount}
-						fcData={fcData}
-						is3D={is3D}
-						change3D={on3DChange}
-					/>
-				</div>
+
+				<DynamicGraph
+					graphData={data}
+					showSelfLoops={showSelfLoops}
+					curveAmount={curveAmount}
+					fcData={fcData}
+					is3D={is3D}
+					change3D={on3DChange}
+				/>
 			</div>
 			<Drawer
 				title="Network Options"
@@ -107,13 +104,12 @@ function App() {
 				<p />
 				Display Dimension
 				<Switch
-						defaultChecked
-						checkedChildren="3D"
-						unCheckedChildren="2D" 
-						checked={is3D}
-						onChange={on3DChange}
-						style={{ float: "right" }}
-					/>
+					defaultChecked
+					checkedChildren="3D"
+					checked={is3D}
+					onChange={on3DChange}
+					style={{ float: "right" }}
+				/>
 				<p />
 				Fold-Change Data
 				<br />

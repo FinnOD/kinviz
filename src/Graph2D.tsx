@@ -1,6 +1,7 @@
 import { MultiDirectedGraph } from "graphology";
 import { renderToString } from "react-dom/server";
 import ForceGraph2D, { ForceGraphMethods } from "react-force-graph-2d";
+import { NodeObject } from "react-force-graph-2d";
 
 import { GraphData, LinkInput, NodeInput } from "./DynGraph";
 import { NodeLabel, LinkLabel } from "./GraphLabels";
@@ -9,6 +10,8 @@ export default function Graph2D(props: {
 	graphData: GraphData;
 	G: MultiDirectedGraph;
 	fgRef: React.MutableRefObject<ForceGraphMethods | undefined> | undefined;
+	handleNodeRightClick: (node: NodeObject, event: MouseEvent) => void;
+	onNodeHoverOff: () => void;
 	width: number;
 	height: number;
 	setHoveredNode: any; //(node: NodeInput | null) => void;
@@ -26,13 +29,17 @@ export default function Graph2D(props: {
 			ref={props.fgRef}
 			width={props.width}
 			height={props.height}
-			
+			//
 			// Node props
 			nodeLabel={(n: any) =>
 				renderToString(<NodeLabel node={props.G.getNodeAttributes(n.id)} />)
 			}
-			onNodeClick={(e) => {}} //TODO
-			onNodeHover={(n) => props.setHoveredNode(n)}
+			onNodeClick={(e) => {}} //TODO zoom?
+			onNodeRightClick={props.handleNodeRightClick}
+			onNodeHover={(node: NodeObject | null, previousNode: NodeObject | null) => {
+				props.setHoveredNode(node);
+				if (previousNode && !node) props.onNodeHoverOff(); //node was just hovered off
+			}}
 			nodeColor={(n: any) => (n === props.hoveredNode ? "#FF964D" : "#F0B648")}
 			//
 			// Link props
@@ -65,13 +72,7 @@ export default function Graph2D(props: {
 				);
 			}}
 			linkVisibility={(l: any) => {
-				let link = undefined 
-				// try{
-				link = props.G.getEdgeAttributes(l.key)!;
-				// }
-				// catch{ debugger;}
-				// return true;
-				// if(link === undefined){ return true};
+				let link = props.G.getEdgeAttributes(l.key);
 				let canVis = link.source !== link.target || props.showSelfLoops;
 				if (props.curveAmount > 0) return canVis;
 				return (link.isFirstLink || link.source === link.target) && canVis;
