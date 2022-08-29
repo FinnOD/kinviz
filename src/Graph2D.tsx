@@ -26,7 +26,7 @@ export default function Graph2D(props: {
 			//Basic Props
 			backgroundColor={"#0f1320"}
 			graphData={props.graphData}
-			ref={props.fgRef}
+			// ref={props.fgRef}
 			width={props.width}
 			height={props.height}
 			//
@@ -41,6 +41,7 @@ export default function Graph2D(props: {
 				if (previousNode && !node) props.onNodeHoverOff(); //node was just hovered off
 			}}
 			nodeColor={(n: any) => (n === props.hoveredNode ? "#FF964D" : "#F0B648")}
+			nodeVisibility={(n: any ) => props.G.getNodeAttribute(n.id, 'subgraphVis') ?? false}
 			//
 			// Link props
 			linkLabel={(l: any) =>
@@ -60,6 +61,7 @@ export default function Graph2D(props: {
 			}}
 			linkDirectionalArrowLength={3.5}
 			linkDirectionalArrowRelPos={1}
+			linkDirectionalParticleWidth={4}
 			linkDirectionalParticles={(l: any) => {
 				let p = props.G.getEdgeAttribute(l.key, "fc") ?? 0;
 				if (p === 0) return 0;
@@ -73,7 +75,7 @@ export default function Graph2D(props: {
 			}}
 			linkVisibility={(l: any) => {
 				let link = props.G.getEdgeAttributes(l.key);
-				let canVis = link.source !== link.target || props.showSelfLoops;
+				let canVis = (link.source !== link.target || props.showSelfLoops) && (props.G.getEdgeAttribute(l.key, 'subgraphVis') ?? false);
 				if (props.curveAmount > 0) return canVis;
 				return (link.isFirstLink || link.source === link.target) && canVis;
 			}}

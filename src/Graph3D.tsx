@@ -58,6 +58,7 @@ export default function Graph3D(props: {
 				if (previousNode && !node) props.onNodeHoverOff(); //node was just hovered off
 			}}
 			nodeColor={(n: any) => (n === props.hoveredNode ? "#FF964D" : "#F0B648")}
+			nodeVisibility={(n: any ) => props.G.getNodeAttribute(n.id, 'subgraphVis') ?? false}
 			//
 			// Link props
 			linkLabel={(l: any) =>
@@ -66,7 +67,7 @@ export default function Graph3D(props: {
 			linkHoverPrecision={10}
 			linkWidth={(l: any) => {
 				let p = props.G?.getEdgeAttribute(l.key, "fc") ?? 0.4;
-				return Math.max(0.01, 2 * Math.abs(p));
+				return Math.max(0.01, 1.5 * Math.abs(p));
 			}}
 			onLinkHover={(l: any) => props.setHoveredLink(l)}
 			linkColor={(l: any) => {
@@ -77,6 +78,7 @@ export default function Graph3D(props: {
 			}}
 			linkDirectionalArrowLength={3.5}
 			linkDirectionalArrowRelPos={1}
+			linkDirectionalParticleWidth={(l: any) => (props.G?.getEdgeAttribute(l.key, "fc") ?? 0.2)*1}
 			linkDirectionalParticles={(l: any) => {
 				let p = props.G?.getEdgeAttribute(l.key, "fc") ?? 0;
 				if (p === 0) return 0;
@@ -91,8 +93,7 @@ export default function Graph3D(props: {
 			linkCurveRotation={(l: any) => props.G?.getEdgeAttribute(l.key, "rotation")}
 			linkVisibility={(l: any) => {
 				let link = props.G?.getEdgeAttributes(l.key)!;
-				// if(link === undefined){ return true};
-				let canVis = link.source !== link.target || props.showSelfLoops;
+				let canVis = (link.source !== link.target || props.showSelfLoops) && (props.G.getEdgeAttribute(l.key, 'subgraphVis') ?? false);
 				if (props.curveAmount > 0) return canVis;
 				return (link.isFirstLink || link.source === link.target) && canVis;
 			}}

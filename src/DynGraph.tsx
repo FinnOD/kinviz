@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { useWindowSize } from "usehooks-ts";
 import { MultiDirectedGraph } from "graphology";
 import { Dropdown } from "antd";
-import { NodeObject, LinkObject } from "react-force-graph-3d";
 
 import { FCData } from "./UploadComponent";
 import Graph3D from "./Graph3D";
@@ -37,7 +36,7 @@ function idPair(attr: any): [string, string] {
 	return [source, target];
 }
 
-function calculateCurveRotVis(G: MultiDirectedGraph): any {
+function calculateCurveRotVis(G: MultiDirectedGraph): MultiDirectedGraph {
 	function linkID(attr: any): string {
 		let sorted = idPair(attr).sort();
 		return "".concat(sorted[0], "_", sorted[1]);
@@ -145,6 +144,38 @@ function addFCtoG(G: MultiDirectedGraph, fcData: FCData | undefined): MultiDirec
 	}
 }
 
+function calculateNeighbourVisibility(G: MultiDirectedGraph, subgraphNode: NodeInput | null): MultiDirectedGraph {
+	G.updateEachEdgeAttributes((edge, attr) => {
+		attr.subgraphVis = true;
+		return attr;
+	});
+
+	G.updateEachNodeAttributes((node, attr) => {
+		attr.subgraphVis = true;
+		return attr;
+	});
+
+	if(subgraphNode !== null){
+
+		let neighbours: Array<string> = [];
+		G.forEachNeighbor(subgraphNode.id, function(neighbor, attributes) {
+			neighbours.push(neighbor);
+		});
+		
+		G.updateEachEdgeAttributes((edge, attr) => {
+			attr.subgraphVis = idPair(attr).filter(e => neighbours.includes(e)).length === 2;
+			return attr;
+		});
+
+		G.updateEachNodeAttributes((node, attr) => {
+			attr.subgraphVis = neighbours.includes(node);
+			return attr;
+		});
+	}
+
+	return G;
+}
+
 const DynamicGraph = (props: {
 	graphData: GraphData;
 	showSelfLoops: boolean;
@@ -160,16 +191,19 @@ const DynamicGraph = (props: {
 	const [graphMix, updateGraphMix] = useState<{ graphData: GraphData; G: MultiDirectedGraph }>(
 		() => {
 			const newG = calculateCurveRotVis(dataGraphToGraphology(props.graphData).copy());
-			const newGWithFC = addFCtoG(newG.copy(), props.fcData);
+			const newGSubVis = calculateNeighbourVisibility(newG, null);
+			const newGWithFC = addFCtoG(newGSubVis, props.fcData);
 			return { graphData: props.graphData, G: newGWithFC };
 		}
 	);
 	useEffect(() => {
 		//Generate Graphology representation and layout properties
+		setSubgraphNode(null);
+		props.change3D(true);
 		let newG = calculateCurveRotVis(dataGraphToGraphology(props.graphData).copy());
-
+		let newGSubVis = calculateNeighbourVisibility(newG, null);
 		// update the fcLookup for the new dataset
-		let newGWithFC = addFCtoG(newG.copy(), props.fcData);
+		let newGWithFC = addFCtoG(newGSubVis, props.fcData);
 
 		updateGraphMix({ graphData: props.graphData, G: newGWithFC });
 	}, [props.graphData]);
@@ -201,6 +235,20 @@ const DynamicGraph = (props: {
 			setDropdownVisible(false);
 		}
 	};
+
+	const [subgraphNode, setSubgraphNode] = useState<NodeInput | null>(null);
+	useEffect(() => {
+		let subgraphVisibleG = calculateNeighbourVisibility(graphMix.G.copy(), subgraphNode);
+
+		if(subgraphNode)
+			props.change3D(false);
+
+		updateGraphMix((prevGraphMix) => {
+			return { ...prevGraphMix, G: subgraphVisibleG };
+		});
+		
+		
+	}, [subgraphNode]);
 
 	const { width, height } = useWindowSize();
 
@@ -246,7 +294,13 @@ const DynamicGraph = (props: {
 
 	return (
 		<Dropdown
-			overlay={<NodeMenu targetNode={rightClickedNode}></NodeMenu>}
+			overlay={
+				<NodeMenu
+					targetNode={rightClickedNode}
+					selfSetVisible={setDropdownVisible}
+					setSubgraphNode={setSubgraphNode}
+				></NodeMenu>
+			}
 			trigger={["contextMenu"]}
 			visible={dropdownVisible}
 			onVisibleChange={handleDropdownChange}
