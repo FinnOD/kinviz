@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MenuOutlined } from "@ant-design/icons";
 import { Button, Drawer, Slider, Switch, Divider } from "antd";
 //user
@@ -8,21 +8,30 @@ import NetworkSelect from "./NetworkSelect";
 import DataUpload, { FCData } from "./UploadComponent";
 //data
 import networkKinasesTiny from "./data/networkKinasesTiny.json";
-import networkKinasesSmall from "./data/networkKinasesSmall.json";
-import networkKinasesMedium from "./data/networkKinasesMedium.json";
-import networkKinasesOnly from "./data/networkKinasesOnly.json";
-import network from "./data/network.json";
-
-const networks: Record<string, GraphData> = {
-	"Tiny Kinase Subset": networkKinasesTiny,
-	"Small Kinase Subset": networkKinasesSmall,
-	"Medium Kinase Subset": networkKinasesMedium,
-	"All Kinases": networkKinasesOnly,
-	// @ts-ignore network file is too large and compiler throws an error
-	"Full network": network,
-};
 
 function App() {
+	
+	// Load 'Tiny Kinase Subset' then load all the others.
+	const [networks, setNetworks] = useState<Record<string, GraphData>>({"Tiny Kinase Subset": networkKinasesTiny})
+	useEffect(() => {	
+		(new Promise(r => setTimeout(r, 10000))).then(() => {console.log('done sleep')});
+		import("./data/networkKinasesSmall.json").then((data: GraphData) => {
+			setNetworks((prevNets) => {return {...prevNets, "Small Kinase Subset": data};})
+		});
+		import("./data/networkKinasesMedium.json").then((data: GraphData) => {
+			setNetworks((prevNets) => {return {...prevNets, "Medium Kinase Subset": data};})
+		});
+		import("./data/networkKinasesOnly.json").then((data: GraphData) => {
+			setNetworks((prevNets) => {return { ...prevNets, "All Kinases": data};})
+		});
+		// @ts-ignore network file is too large and linter throws an error
+		import("./data/network.json").then((data: GraphData) => {
+			setNetworks((prevNets) => {return {...prevNets, "Full network": data};})
+			console.log('net')
+		});
+
+	}, []);
+
 	//Drawer
 	const [visible, setVisible] = useState(false);
 	const showDrawer = () => {

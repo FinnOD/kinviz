@@ -2,6 +2,7 @@ import { MultiDirectedGraph } from "graphology";
 import { useCallback } from "react";
 import { renderToString } from "react-dom/server";
 import ForceGraph3D, { ForceGraphMethods, NodeObject } from "react-force-graph-3d";
+// import * as THREE from "three";
 
 import { GraphData, LinkInput, NodeInput } from "./DynGraph";
 import { NodeLabel, LinkLabel } from "./GraphLabels";
@@ -78,7 +79,9 @@ export default function Graph3D(props: {
 			}}
 			linkDirectionalArrowLength={3.5}
 			linkDirectionalArrowRelPos={1}
-			linkDirectionalParticleWidth={(l: any) => (props.G?.getEdgeAttribute(l.key, "fc") ?? 0.2)*1}
+			linkDirectionalParticleWidth={(l: any) =>
+				(props.G?.getEdgeAttribute(l.key, "fc") ?? 0.2) * 1
+			}
 			linkDirectionalParticles={(l: any) => {
 				let p = props.G?.getEdgeAttribute(l.key, "fc") ?? 0;
 				if (p === 0) return 0;
@@ -93,11 +96,14 @@ export default function Graph3D(props: {
 			linkCurveRotation={(l: any) => props.G?.getEdgeAttribute(l.key, "rotation")}
 			linkVisibility={(l: any) => {
 				let link = props.G?.getEdgeAttributes(l.key)!;
-				let canVis = (link.source !== link.target || props.showSelfLoops) && (props.G.getEdgeAttribute(l.key, 'subgraphVis') ?? false);
+				let canVis =
+					(link.source !== link.target || props.showSelfLoops) &&
+					(props.G.getEdgeAttribute(l.key, "subgraphVis") ?? false);
 				if (props.curveAmount > 0) return canVis;
 				return (link.isFirstLink || link.source === link.target) && canVis;
 			}}
 			linkOpacity={0.5}
+			showNavInfo={false}
 		/>
 	);
 }
