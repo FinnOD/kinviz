@@ -7,6 +7,7 @@ import { FCData } from "./UploadComponent";
 import Graph3D from "./Graph3D";
 import Graph2D from "./Graph2D";
 import NodeMenu from "./NodeMenu";
+import { NodeObject } from "react-force-graph-3d";
 
 export type NodeInput = {
 	id: string;
@@ -183,6 +184,8 @@ const DynamicGraph = (props: {
 	fcData: FCData | undefined;
 	is3D: boolean;
 	change3D: (checked: boolean) => void;
+	clickedNode: NodeObject | null;
+	searchFocused: boolean;
 }) => {
 	// Node focus magic
 	const fgRef = useRef<any>();
@@ -220,6 +223,8 @@ const DynamicGraph = (props: {
 
 	const [hoveredNode, setHoveredNode] = useState<NodeInput | null>(null);
 	const [hoveredLink, setHoveredLink] = useState<LinkInput | null>(null);
+	// useEffect(() => {
+	// }, [props.clickedNode])
 
 	const [rightClickedNode, setRightClickedNode] = useState<NodeInput | null>(null);
 	const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -268,11 +273,13 @@ const DynamicGraph = (props: {
 			height={height}
 			setHoveredNode={setHoveredNode}
 			onNodeHoverOff={() => handleNodeRightClick(null)}
+			clickedNode={props.clickedNode}
 			hoveredNode={hoveredNode}
 			setHoveredLink={setHoveredLink}
 			hoveredLink={hoveredLink}
 			curveAmount={props.curveAmount}
 			showSelfLoops={props.showSelfLoops}
+			searchFocused={props.searchFocused}
 		/>
 	) : (
 		<Graph2D
@@ -305,7 +312,7 @@ const DynamicGraph = (props: {
 			visible={dropdownVisible}
 			onVisibleChange={handleDropdownChange}
 		>
-			<div className="maingraph">{graphElement}</div>
+			<div>{graphElement}</div>
 		</Dropdown>
 	);
 };

@@ -3,7 +3,6 @@
 .main {
   width: 100px;
   height: 100px;
-  position: relative;
 }
 .btn,
 .maingraph {
@@ -13,4 +12,52 @@
 }
 .btn {
   z-index: 10;
+  width: 100%;
+  display: flex;
+}
+.maingraph.greyed{
+  pointer-events: none;
+  filter: opacity(0.9) brightness(0.8) blur(1px);
+}
+#menubutton{
+  margin: 0.33em;
+  margin-top: 0em;
+}
+#search{
+  margin:  2px 0px 0px 0.33em;
+  width: 90%;
+  top: 50%;
+
+  font-size: 30px;
+  font-family: sans-serif;
+  color: white;
+  border: none;
+}
+#searchResults{
+  width: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding-left: 2px;
+}
+#searchinput{
+  width: 100%;
+  height: 38px;
+  font-family: sans-serif;
+  color: #eeeeee;
+  border: none;
+  background-color:transparent;
+  border: transparent;
+  outline: none;
+  margin-bottom: 2px;
+}
+#searchinput.focused{
+  border-bottom: solid #eeeeee 3.2px;
+  padding: 0px 0px 10px 2px;
+}
+#searchinput.neverTyped{
+  color: #fff;
+  opacity: 0.5;
+}
+.selectedItem{
+  background-color: rgb(196, 196, 196);
 }

@@ -6,30 +6,38 @@ import "./App.css";
 import DynamicGraph, { GraphData } from "./DynGraph";
 import NetworkSelect from "./NetworkSelect";
 import DataUpload, { FCData } from "./UploadComponent";
+import Searchbox from "./Searchbox";
 //data
 import networkKinasesTiny from "./data/networkKinasesTiny.json";
+import { NodeObject } from "react-force-graph-3d";
 
 function App() {
-	
 	// Load 'Tiny Kinase Subset' then load all the others.
-	const [networks, setNetworks] = useState<Record<string, GraphData>>({"Tiny Kinase Subset": networkKinasesTiny})
-	useEffect(() => {	
-		(new Promise(r => setTimeout(r, 10000))).then(() => {console.log('done sleep')});
+	const [networks, setNetworks] = useState<Record<string, GraphData>>({
+		"Tiny Kinase Subset": networkKinasesTiny,
+	});
+	useEffect(() => {
 		import("./data/networkKinasesSmall.json").then((data: GraphData) => {
-			setNetworks((prevNets) => {return {...prevNets, "Small Kinase Subset": data};})
+			setNetworks((prevNets) => {
+				return { ...prevNets, "Small Kinase Subset": data };
+			});
 		});
 		import("./data/networkKinasesMedium.json").then((data: GraphData) => {
-			setNetworks((prevNets) => {return {...prevNets, "Medium Kinase Subset": data};})
+			setNetworks((prevNets) => {
+				return { ...prevNets, "Medium Kinase Subset": data };
+			});
 		});
 		import("./data/networkKinasesOnly.json").then((data: GraphData) => {
-			setNetworks((prevNets) => {return { ...prevNets, "All Kinases": data};})
+			setNetworks((prevNets) => {
+				return { ...prevNets, "All Kinases": data };
+			});
 		});
 		// @ts-ignore network file is too large and linter throws an error
 		import("./data/network.json").then((data: GraphData) => {
-			setNetworks((prevNets) => {return {...prevNets, "Full network": data};})
-			console.log('net')
+			setNetworks((prevNets) => {
+				return { ...prevNets, "Full network": data };
+			});
 		});
-
 	}, []);
 
 	//Drawer
@@ -70,28 +78,41 @@ function App() {
 	const [data, setData] = useState<GraphData>(networks[selectedNetworkName]);
 	const [fcData, setFCData] = useState<FCData | undefined>(undefined);
 
+	//Clicked node
+	const [clickedNode, setClickedNode] = useState<NodeObject | null>(null);
+	const [searchFocused, setSearchFocused] = useState(false);
+
 	return (
 		<div className="App">
-			<header className="App-header"></header>
 			<div className="main">
 				<div className="btn">
 					<Button
 						type="text"
 						size="large"
-						style={{ paddingLeft: "0.33em" }}
+						id="menubutton"
 						icon={<MenuOutlined style={{ fontSize: "200%", color: "white" }} />}
 						onClick={showDrawer}
 					/>
+					<Searchbox
+						graphData={data}
+						setClickedNode={setClickedNode}
+						takeKeys={!visible}
+						searchFocused={searchFocused}
+						setSearchFocused={setSearchFocused}
+					></Searchbox>
 				</div>
-
-				<DynamicGraph
-					graphData={data}
-					showSelfLoops={showSelfLoops}
-					curveAmount={curveAmount}
-					fcData={fcData}
-					is3D={is3D}
-					change3D={on3DChange}
-				/>
+				<div className={searchFocused ? "maingraph greyed" : "maingraph"}>
+					<DynamicGraph
+						graphData={data}
+						showSelfLoops={showSelfLoops}
+						curveAmount={curveAmount}
+						fcData={fcData}
+						is3D={is3D}
+						change3D={on3DChange}
+						clickedNode={clickedNode}
+						searchFocused={searchFocused}
+					/>
+				</div>
 			</div>
 			<Drawer
 				title="Network Options"
