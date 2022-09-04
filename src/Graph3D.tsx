@@ -24,16 +24,15 @@ export default function Graph3D(props: {
 	showSelfLoops: boolean;
 	searchFocused: boolean;
 }) {
-
-	const [lastClickedNode, setLastClickedNode] = useState<NodeObject | null>(null)
+	const [lastClickedNode, setLastClickedNode] = useState<NodeObject | null>(null);
 
 	const handleNodeClick = useCallback(
 		(node) => {
-			if (props.fgRef?.current === undefined || !node){
-				setLastClickedNode(null);
+			if (props.fgRef?.current === undefined || !node) {
+				if (props.fgRef?.current === undefined) setLastClickedNode(null);
 				return;
 			}
-			setLastClickedNode(node)
+			setLastClickedNode(node);
 			// Aim at node from outside it
 			const distance = 40;
 			const distRatio = 2 + distance / Math.hypot(node.x, node.y, node.z);
@@ -48,8 +47,8 @@ export default function Graph3D(props: {
 	);
 
 	useEffect(() => {
-		handleNodeClick(props.clickedNode)
-	}, [props.clickedNode, handleNodeClick])
+		handleNodeClick(props.clickedNode);
+	}, [props.clickedNode, handleNodeClick]);
 
 	return (
 		<ForceGraph3D
@@ -61,28 +60,37 @@ export default function Graph3D(props: {
 			height={props.height}
 			//
 			// Node props
-			nodeLabel={(n: any) => props.searchFocused ? "" :
-				renderToString(<NodeLabel node={props.G?.getNodeAttributes(n.id)} />)
+			nodeLabel={(n: any) =>
+				props.searchFocused
+					? ""
+					: renderToString(<NodeLabel node={props.G?.getNodeAttributes(n.id)} />)
 			}
 			onNodeClick={handleNodeClick}
 			onNodeRightClick={props.handleNodeRightClick}
-			// onNodeHover={(node: NodeObject | null, previousNode: NodeObject | null) => {
-			// 	props.setHoveredNode(node);
-			// 	if (previousNode && !node) props.onNodeHoverOff(); //node was just hovered off
-			// }}
-			nodeColor={(n: any) => ((n === props.hoveredNode || n === lastClickedNode) ? "#FF964D" : "#F0B648")}
-			nodeVisibility={(n: any ) => props.G.getNodeAttribute(n.id, 'subgraphVis') ?? false}
+			onNodeHover={(node: NodeObject | null, previousNode: NodeObject | null) => {
+				
+				if (previousNode && !node) props.onNodeHoverOff(); //node was just hovered off
+				if (!props.searchFocused) props.setHoveredNode(node);
+			}}
+			nodeColor={(n: any) =>
+				n === props.hoveredNode || n === lastClickedNode ? "#FF964D" : "#F0B648"
+			}
+			nodeVisibility={(n: any) => props.G.getNodeAttribute(n.id, "subgraphVis") ?? false}
 			//
 			// Link props
-			linkLabel={(l: any) => props.searchFocused ? "" :
-				renderToString(<LinkLabel edge={props.G?.getEdgeAttributes(l.key)} />)
+			linkLabel={(l: any) =>
+				props.searchFocused
+					? ""
+					: renderToString(<LinkLabel edge={props.G?.getEdgeAttributes(l.key)} />)
 			}
 			linkHoverPrecision={10}
 			linkWidth={(l: any) => {
 				let p = props.G?.getEdgeAttribute(l.key, "fc") ?? 0.4;
 				return Math.max(0.01, 1.5 * Math.abs(p));
 			}}
-			onLinkHover={(l: any) => props.setHoveredLink(l)}
+			onLinkHover={(l: any) => {
+				if (!props.searchFocused) props.setHoveredLink(l);
+			}}
 			linkColor={(l: any) => {
 				let hovCol = l === props.hoveredLink ? "#FF964D" : "#9DAABC";
 				let fc = props.G?.getEdgeAttribute(l.key, "fc");

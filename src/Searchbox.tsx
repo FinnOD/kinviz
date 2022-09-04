@@ -2,6 +2,7 @@ import { useRef, useEffect, useState, MutableRefObject } from "react";
 import { NodeObject } from "react-force-graph-3d";
 import { GraphData } from "./DynGraph";
 
+
 const useFocus = (): [any, (foc: boolean) => void] => {
 	const htmlElRef: MutableRefObject<any> = useRef(null);
 	const setFocus = (foc: boolean): void => {
@@ -24,18 +25,21 @@ function searchGNames(graphData: GraphData, term: string) {
 
 function Searchbox(props: {
 	graphData: GraphData;
+	clickedNode: NodeObject | null;
 	setClickedNode: React.Dispatch<React.SetStateAction<NodeObject | null>>;
 	takeKeys: boolean;
 	searchFocused: boolean;
 	setSearchFocused: React.Dispatch<React.SetStateAction<boolean>>;
+	clearBar: boolean
+	setClearBar: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
 	const [typedEver, setTypedEver] = useState<boolean>(false);
 	const [selectPosition, setSelectPosition] = useState<number>(0);
-	
+
 	const [inputRef, setInputFocus] = useFocus();
 	function downHandler(ev: KeyboardEvent) {
 		if (!props.takeKeys) return;
-
+		
 		if (ev.key === "ArrowDown") {
 			ev.preventDefault();
 			setSelectPosition(Math.min(selectPosition + 1, searchedNodes.length));
@@ -45,10 +49,13 @@ function Searchbox(props: {
 			setSelectPosition(Math.max(selectPosition - 1, 1));
 		}
 		if (ev.key === "Backspace") {
-			setInputFocus(true);
 			if (text.length === 1) {
 				setText("");
 				setInputFocus(false);
+			} else if(text.length > 1){
+				if(!typedEver)
+					setText("");
+				setInputFocus(true);
 			}
 		}
 		if (ev.key === "Escape") {
@@ -56,19 +63,23 @@ function Searchbox(props: {
 			setInputFocus(false);
 		}
 		if (ev.key === "Enter") {
-			// if(searchedNodes.length == 1)
-			// 	props.setClickedNode(searchedNodes[0]);
-			// else
+			if (searchedNodes.length === 1) props.setClickedNode(searchedNodes[0]);
+
 			props.setClickedNode(searchedNodes[selectPosition - 1]);
 			setText("");
 			setInputFocus(false);
 		}
+
+		setTypedEver(true);
 	}
 
 	function pressHandler(ev: KeyboardEvent) {
 		if (!props.takeKeys) return;
+		setTypedEver(true);
+
 		if (!props.searchFocused) {
 			setText("");
+			props.setSearchFocused(true);
 			setInputFocus(true);
 		}
 	}
@@ -90,11 +101,6 @@ function Searchbox(props: {
 	const initString = "Node search...";
 	const [text, setText] = useState<string>(initString);
 	useEffect(() => {
-		if (!typedEver && text !== initString) {
-			setTypedEver(true);
-			setText("");
-		}
-
 		if (text) {
 			let nodes = searchGNames(props.graphData, text);
 			setSearchedNodes(nodes);
@@ -105,23 +111,31 @@ function Searchbox(props: {
 	}, [text, props.graphData, typedEver]);
 
 	useEffect(() => {
-		if(!props.searchFocused)
+		if(typedEver && props.clearBar){
 			setText("");
-		// props.setSearchFocused(props.searchFocused);
-	}, [props.searchFocused])
+			props.setClearBar(false);
+		}
+	}, [props.clearBar]);
 
 	const [searchedNodes, setSearchedNodes] = useState<Array<NodeObject>>([]);
 	const listItems = searchedNodes.slice(0, 10).map((node: any, i) => {
+		let selectedNode = props.clickedNode?.id === node.id;
+		let classname =
+			"searchItem" +
+			(i + 1 === selectPosition ? " selectedItem" : "") +
+			(selectedNode ? " clickedNodeItem" : "");
+
 		return (
 			<li
 				key={node.id}
 				onMouseEnter={() => setSelectPosition(i + 1)}
 				onClick={() => {
+					console.log("made");
 					props.setClickedNode(node);
 					setText("");
 					setInputFocus(false);
 				}}
-				className={i + 1 === selectPosition ? "selectedItem" : ""}
+				className={classname}
 			>
 				{node.name}
 			</li>
@@ -133,8 +147,18 @@ function Searchbox(props: {
 			<input
 				id="searchinput"
 				type="text"
+				autoComplete="off"
 				ref={inputRef}
-				onBlur={() => props.setSearchFocused(false)}
+				onClick={() => {
+					if (!typedEver) {
+						setTypedEver(true);
+						setText("");
+					}
+				}}
+				onBlur={() => {
+					props.setSearchFocused(false);
+					setInputFocus(false);
+				}}
 				onFocus={() => props.setSearchFocused(true)}
 				value={text}
 				className={
@@ -146,7 +170,7 @@ function Searchbox(props: {
 				}
 				onChange={handleInput}
 			></input>
-			<ul id="searchResults">{listItems}</ul>
+			<ul id="searchResults" onMouseOut={() => setSelectPosition(0)}>{listItems}</ul>
 		</div>
 	);
 }

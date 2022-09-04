@@ -16,7 +16,7 @@
   display: flex;
 }
 .maingraph.greyed{
-  pointer-events: none;
+  /* pointer-events: none; */
   filter: opacity(0.9) brightness(0.8) blur(1px);
 }
 #menubutton{
@@ -55,9 +55,16 @@
   padding: 0px 0px 10px 2px;
 }
 #searchinput.neverTyped{
-  color: #fff;
-  opacity: 0.5;
+  color: rgb(255, 255, 255);
+  opacity: 0.2;
+}
+.searchItem{
+  
 }
 .selectedItem{
-  background-color: rgb(196, 196, 196);
+  background-color: rgb(196, 196, 196, 0.6);
+}
+.clickedNodeItem{
+  background-color:  rgb(240, 182, 72, 0.6);
+  font-weight: bold;
 }

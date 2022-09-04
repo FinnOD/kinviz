@@ -81,6 +81,8 @@ function App() {
 	//Clicked node
 	const [clickedNode, setClickedNode] = useState<NodeObject | null>(null);
 	const [searchFocused, setSearchFocused] = useState(false);
+	//Really sorry about this. Couldn't figure out how to clear searchbar on click out using useImpertiveHandle.
+	const [clearBar, setClearBar] = useState(false); 
 
 	return (
 		<div className="App">
@@ -95,13 +97,21 @@ function App() {
 					/>
 					<Searchbox
 						graphData={data}
+						clickedNode={clickedNode}
 						setClickedNode={setClickedNode}
 						takeKeys={!visible}
 						searchFocused={searchFocused}
 						setSearchFocused={setSearchFocused}
+						clearBar={clearBar}
+						setClearBar={setClearBar}
 					></Searchbox>
 				</div>
-				<div className={searchFocused ? "maingraph greyed" : "maingraph"}>
+				<div
+					className={searchFocused ? "maingraph greyed" : "maingraph"}
+					onClick={(e) => {
+						setClearBar(true);
+					}}
+				>
 					<DynamicGraph
 						graphData={data}
 						showSelfLoops={showSelfLoops}
