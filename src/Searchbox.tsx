@@ -1,7 +1,8 @@
 import { useRef, useEffect, useState, MutableRefObject } from "react";
 import { NodeObject } from "react-force-graph-3d";
-import { GraphData } from "./DynGraph";
+import { QuickScore } from "quick-score";
 
+import { GraphData } from "./DynGraph";
 
 const useFocus = (): [any, (foc: boolean) => void] => {
 	const htmlElRef: MutableRefObject<any> = useRef(null);
@@ -13,14 +14,14 @@ const useFocus = (): [any, (foc: boolean) => void] => {
 	return [htmlElRef, setFocus];
 };
 
-function searchGNames(graphData: GraphData, term: string) {
+function searchGNames(graphData: GraphData, term: string): Array<NodeObject> {
 	if (!term) return [];
 
-	let rough = graphData.nodes.filter((element) =>
-		element.name.toLowerCase().includes(term.toLowerCase())
-	);
+	const qs = new QuickScore(graphData.nodes, ["name"]);
+	const result = qs.search(term);
+	console.log(result);
 
-	return rough.sort((a, b) => (a.name === b.name ? 0 : a.name > b.name ? 1 : -1));
+	return result.map((o) => o.item);
 }
 
 function Searchbox(props: {
@@ -30,7 +31,7 @@ function Searchbox(props: {
 	takeKeys: boolean;
 	searchFocused: boolean;
 	setSearchFocused: React.Dispatch<React.SetStateAction<boolean>>;
-	clearBar: boolean
+	clearBar: boolean;
 	setClearBar: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
 	const [typedEver, setTypedEver] = useState<boolean>(false);
@@ -39,7 +40,7 @@ function Searchbox(props: {
 	const [inputRef, setInputFocus] = useFocus();
 	function downHandler(ev: KeyboardEvent) {
 		if (!props.takeKeys) return;
-		
+
 		if (ev.key === "ArrowDown") {
 			ev.preventDefault();
 			setSelectPosition(Math.min(selectPosition + 1, searchedNodes.length));
@@ -52,9 +53,8 @@ function Searchbox(props: {
 			if (text.length === 1) {
 				setText("");
 				setInputFocus(false);
-			} else if(text.length > 1){
-				if(!typedEver)
-					setText("");
+			} else if (text.length > 1) {
+				if (!typedEver) setText("");
 				setInputFocus(true);
 			}
 		}
@@ -111,7 +111,7 @@ function Searchbox(props: {
 	}, [text, props.graphData, typedEver]);
 
 	useEffect(() => {
-		if(typedEver && props.clearBar){
+		if (typedEver && props.clearBar) {
 			setText("");
 			props.setClearBar(false);
 		}
@@ -170,7 +170,9 @@ function Searchbox(props: {
 				}
 				onChange={handleInput}
 			></input>
-			<ul id="searchResults" onMouseOut={() => setSelectPosition(0)}>{listItems}</ul>
+			<ul id="searchResults" onMouseOut={() => setSelectPosition(0)}>
+				{listItems}
+			</ul>
 		</div>
 	);
 }
