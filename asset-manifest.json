@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/kinviz/static/css/main.1a5c99af.css",
-    "main.js": "/kinviz/static/js/main.d0558eca.js",
+    "main.css": "/kinviz/static/css/main.7d0106f6.css",
+    "main.js": "/kinviz/static/js/main.b2715565.js",
     "static/js/824.0ea981a9.chunk.js": "/kinviz/static/js/824.0ea981a9.chunk.js",
     "static/js/66.d2be518f.chunk.js": "/kinviz/static/js/66.d2be518f.chunk.js",
     "static/js/833.343d55f1.chunk.js": "/kinviz/static/js/833.343d55f1.chunk.js",
     "static/js/586.3c441d7b.chunk.js": "/kinviz/static/js/586.3c441d7b.chunk.js",
     "static/js/787.34c124cb.chunk.js": "/kinviz/static/js/787.34c124cb.chunk.js",
     "index.html": "/kinviz/index.html",
-    "main.1a5c99af.css.map": "/kinviz/static/css/main.1a5c99af.css.map",
-    "main.d0558eca.js.map": "/kinviz/static/js/main.d0558eca.js.map",
+    "main.7d0106f6.css.map": "/kinviz/static/css/main.7d0106f6.css.map",
+    "main.b2715565.js.map": "/kinviz/static/js/main.b2715565.js.map",
     "787.34c124cb.chunk.js.map": "/kinviz/static/js/787.34c124cb.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1a5c99af.css",
-    "static/js/main.d0558eca.js"
+    "static/css/main.7d0106f6.css",
+    "static/js/main.b2715565.js"
   ]
 }
