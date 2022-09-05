@@ -2,6 +2,7 @@ import { MultiDirectedGraph } from "graphology";
 import { renderToString } from "react-dom/server";
 import ForceGraph2D, { ForceGraphMethods } from "react-force-graph-2d";
 import { NodeObject } from "react-force-graph-2d";
+import { ColorScheme } from "./App";
 
 import { GraphData, LinkInput, NodeInput } from "./DynGraph";
 import { NodeLabel, LinkLabel } from "./GraphLabels";
@@ -21,11 +22,12 @@ export default function Graph2D(props: {
 	hoveredLink: LinkInput | null;
 	curveAmount: number;
 	showSelfLoops: boolean;
+	colorScheme: ColorScheme;
 }) {
 	return (
 		<ForceGraph2D
 			//Basic Props
-			backgroundColor={"#0f1320"}
+			backgroundColor={props.colorScheme.background}
 			graphData={props.graphData}
 			// ref={props.fgRef}
 			width={props.width}
@@ -41,7 +43,9 @@ export default function Graph2D(props: {
 				props.setHoveredNode(node);
 				if (previousNode && !node) props.onNodeHoverOff(); //node was just hovered off
 			}}
-			nodeColor={(n: any) => (n === props.hoveredNode ? "#FF964D" : "#F0B648")}
+			nodeColor={(n: any) =>{
+				return (n === props.hoveredNode ? props.colorScheme.nodes.selected : props.colorScheme.nodes.byType[n.type]);
+			}}
 			nodeVisibility={(n: any) =>
 				(n.isKinase || props.showSubstrates) &&
 				(props.G.getNodeAttribute(n.id, "subgraphVis") ?? false)
@@ -58,10 +62,10 @@ export default function Graph2D(props: {
 			}}
 			onLinkHover={(l: any) => props.setHoveredLink(l)}
 			linkColor={(l: any) => {
-				let hovCol = l === props.hoveredLink ? "#FF964D" : "#9DAABC";
-				let fc = props.G.getEdgeAttribute(l.key, "fc");
+				let hovCol = l === props.hoveredLink ? props.colorScheme.links.selected : props.colorScheme.links.default;
+				let fc = props.G?.getEdgeAttribute(l.key, "fc");
 				if (fc === undefined) return hovCol;
-				return l === props.hoveredLink ? "#F0B648" : fc > 0 ? "#FF964D" : "#2A729A";
+				return l === props.hoveredLink ? props.colorScheme.links.default : fc > 0 ? props.colorScheme.links.FCup : props.colorScheme.links.FCdown;
 			}}
 			linkDirectionalArrowLength={3.5}
 			linkDirectionalArrowRelPos={1}

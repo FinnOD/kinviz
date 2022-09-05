@@ -4,41 +4,82 @@ import { Button, Drawer, Slider, Switch, Divider } from "antd";
 //user
 import "./App.css";
 import DynamicGraph, { GraphData } from "./DynGraph";
-import NetworkSelect from "./NetworkSelect";
+import DropdownSelect from "./DropdownSelect";
 import DataUpload, { FCData } from "./UploadComponent";
 import Searchbox from "./Searchbox";
 //data
-import networkKinasesTiny from "./data/networkKinasesTiny.json";
+import networkKinasesTiny from "./data/base-networks/networkKinasesTiny.json";
+import defaultColorScheme from "./data/color-schemes/default.json";
+import defaultLightColorScheme from "./data/color-schemes/default light.json";
+import colorfulColorScheme from "./data/color-schemes/colorful.json";
 import { NodeObject } from "react-force-graph-3d";
+
+// type ProteinType = "Unclassified" | "Transcription" | "Structural" | "Metabolic" | "Ser/Thr/Tyr Kinase" | "Tyr Kinase" | "Phosphatase" | "Adapter/scaffold" | "Cytosketetal"
+
+export interface ColorScheme {
+	background: string;
+	nodes: {
+		kinase: string;
+		substrate: string;
+		selected: string;
+		byType: Record<string, string>;
+	};
+	links: {
+		default: string;
+		selected: string;
+		FCup: string;
+		FCdown: string;
+	};
+}
+
+function imputeColorScheme(inScheme: ColorScheme): ColorScheme {
+	Object.keys(inScheme.nodes.byType).forEach((proteinType) => {
+		if (!inScheme.nodes.byType[proteinType]) {
+			if (proteinType.includes("Kinase"))
+				inScheme.nodes.byType[proteinType] = inScheme.nodes.kinase;
+			else inScheme.nodes.byType[proteinType] = inScheme.nodes.substrate;
+		}
+	});
+
+	return inScheme;
+}
 
 function App() {
 	// Load 'Tiny Kinase Subset' then load all the others.
 	const [networks, setNetworks] = useState<Record<string, GraphData>>({
-		"Tiny Kinase Subset": networkKinasesTiny,
+		"Tiny Subset": networkKinasesTiny,
 	});
 	useEffect(() => {
-		import("./data/networkKinasesSmall.json").then((data: GraphData) => {
+		import("./data/base-networks/networkKinasesSmall.json").then((data: GraphData) => {
 			setNetworks((prevNets) => {
-				return { ...prevNets, "Small Kinase Subset": data };
+				return { ...prevNets, "Small Subset": data };
 			});
 		});
-		import("./data/networkKinasesMedium.json").then((data: GraphData) => {
+		import("./data/base-networks/networkKinasesMedium.json").then((data: GraphData) => {
 			setNetworks((prevNets) => {
-				return { ...prevNets, "Medium Kinase Subset": data };
+				return { ...prevNets, "Medium Subset": data };
 			});
 		});
-		import("./data/networkKinasesOnly.json").then((data: GraphData) => {
+		import("./data/base-networks/networkKinasesOnly.json").then((data: GraphData) => {
 			setNetworks((prevNets) => {
 				return { ...prevNets, "All Kinases": data };
 			});
 		});
 		// @ts-ignore network file is too large and linter throws an error
-		import("./data/network.json").then((data: GraphData) => {
+		import("./data/base-networks/network.json").then((data: GraphData) => {
 			setNetworks((prevNets) => {
 				return { ...prevNets, "Full network": data };
 			});
 		});
 	}, []);
+
+	const [colorSchemes, setColorSchemes] = useState<Record<string, ColorScheme>>({
+		"Default": imputeColorScheme(defaultColorScheme),
+		"Default - Light": imputeColorScheme(defaultLightColorScheme),
+		"Colourful": imputeColorScheme(colorfulColorScheme)
+	});
+	const [selectedColorScheme, setSelectedColorScheme] = useState(Object.keys(colorSchemes)[0]);
+	const [colorScheme, setColorScheme] = useState<ColorScheme>(colorSchemes[selectedColorScheme]);
 
 	//Drawer
 	const [visible, setVisible] = useState(false);
@@ -127,6 +168,7 @@ function App() {
 						change3D={on3DChange}
 						clickedNode={clickedNode}
 						searchFocused={searchFocused}
+						colorScheme={colorScheme}
 					/>
 				</div>
 			</div>
@@ -139,14 +181,14 @@ function App() {
 			>
 				Base Dataset
 				<br />
-				<NetworkSelect
-					selectedNetworkName={selectedNetworkName}
-					netDict={networks}
-					handleNetworkChange={(selectedVal: string) => {
+				<DropdownSelect
+					selectedName={selectedNetworkName}
+					dict={networks}
+					handleChange={(selectedVal: string) => {
 						setSelectedNetworkName(selectedVal);
 						setData(networks[selectedVal]);
 					}}
-				></NetworkSelect>
+				></DropdownSelect>
 				<p />
 				Display Dimension
 				<Switch
@@ -160,6 +202,17 @@ function App() {
 				Fold-Change Data
 				<br />
 				<DataUpload fcDataCallback={setFCData}></DataUpload>
+				<br />
+				Color Scheme
+				<br />
+				<DropdownSelect
+					selectedName={selectedColorScheme}
+					dict={colorSchemes}
+					handleChange={(selectedVal: string) => {
+						setSelectedNetworkName(selectedVal);
+						setColorScheme(colorSchemes[selectedVal]);
+					}}
+				></DropdownSelect>
 				<Divider />
 				{/* </Divider> */}
 				Link Curvature

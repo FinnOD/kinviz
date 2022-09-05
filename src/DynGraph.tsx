@@ -8,6 +8,7 @@ import Graph3D from "./Graph3D";
 import Graph2D from "./Graph2D";
 import NodeMenu from "./NodeMenu";
 import { NodeObject } from "react-force-graph-3d";
+import { ColorScheme } from "./App";
 
 export type NodeInput = {
 	id: string;
@@ -187,6 +188,7 @@ const DynamicGraph = (props: {
 	change3D: (checked: boolean) => void;
 	clickedNode: NodeObject | null;
 	searchFocused: boolean;
+	colorScheme: ColorScheme;
 }) => {
 	// Node focus magic
 	const fgRef = useRef<any>();
@@ -282,6 +284,7 @@ const DynamicGraph = (props: {
 			curveAmount={props.curveAmount}
 			showSelfLoops={props.showSelfLoops}
 			searchFocused={props.searchFocused}
+			colorScheme={props.colorScheme}
 		/>
 	) : (
 		<Graph2D
@@ -299,6 +302,7 @@ const DynamicGraph = (props: {
 			hoveredLink={hoveredLink}
 			curveAmount={props.curveAmount}
 			showSelfLoops={props.showSelfLoops}
+			colorScheme={props.colorScheme}
 		/>
 	);
 

@@ -2,6 +2,7 @@ import { MultiDirectedGraph } from "graphology";
 import { useCallback, useEffect, useState } from "react";
 import { renderToString } from "react-dom/server";
 import ForceGraph3D, { ForceGraphMethods, NodeObject } from "react-force-graph-3d";
+import { ColorScheme } from "./App";
 // import * as THREE from "three";
 
 import { GraphData, LinkInput, NodeInput } from "./DynGraph";
@@ -24,6 +25,7 @@ export default function Graph3D(props: {
 	curveAmount: number;
 	showSelfLoops: boolean;
 	searchFocused: boolean;
+	colorScheme: ColorScheme;
 }) {
 	const [lastClickedNode, setLastClickedNode] = useState<NodeObject | null>(null);
 
@@ -54,7 +56,7 @@ export default function Graph3D(props: {
 	return (
 		<ForceGraph3D
 			//Basic Props
-			backgroundColor={"#0f1320"}
+			backgroundColor={props.colorScheme.background}
 			graphData={props.graphData}
 			ref={props.fgRef}
 			width={props.width}
@@ -73,9 +75,9 @@ export default function Graph3D(props: {
 				if (!props.searchFocused) props.setHoveredNode(node);
 			}}
 			nodeAutoColorBy={(n: any) => n.isKinase ? "Kinase" : n.type}
-			// nodeColor={(n: any) =>
-			// 	n === props.hoveredNode || n === lastClickedNode ? "#FF964D" : "#F0B648"
-			// }
+			nodeColor={(n: any) =>{
+				return (n === props.hoveredNode || n === lastClickedNode ? props.colorScheme.nodes.selected : props.colorScheme.nodes.byType[n.type]);
+			}}
 			nodeVisibility={(n: any) =>
 				(n.isKinase || props.showSubstrates) &&
 				(props.G.getNodeAttribute(n.id, "subgraphVis") ?? false)
@@ -96,10 +98,10 @@ export default function Graph3D(props: {
 				if (!props.searchFocused) props.setHoveredLink(l);
 			}}
 			linkColor={(l: any) => {
-				let hovCol = l === props.hoveredLink ? "#FF964D" : "#9DAABC";
+				let hovCol = l === props.hoveredLink ? props.colorScheme.links.selected : props.colorScheme.links.default;
 				let fc = props.G?.getEdgeAttribute(l.key, "fc");
 				if (fc === undefined) return hovCol;
-				return l === props.hoveredLink ? "#F0B648" : fc > 0 ? "#FF964D" : "#2A729A";
+				return l === props.hoveredLink ? props.colorScheme.links.default : fc > 0 ? props.colorScheme.links.FCup : props.colorScheme.links.FCdown;
 			}}
 			linkDirectionalArrowLength={3.5}
 			linkDirectionalArrowRelPos={1}
