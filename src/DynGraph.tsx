@@ -183,6 +183,7 @@ const DynamicGraph = (props: {
 	curveAmount: number;
 	fcData: FCData | undefined;
 	is3D: boolean;
+	showSubstrates: boolean;
 	change3D: (checked: boolean) => void;
 	clickedNode: NodeObject | null;
 	searchFocused: boolean;
@@ -271,6 +272,7 @@ const DynamicGraph = (props: {
 			handleNodeRightClick={handleNodeRightClick}
 			width={width}
 			height={height}
+			showSubstrates={props.showSubstrates}
 			setHoveredNode={setHoveredNode}
 			onNodeHoverOff={() => handleNodeRightClick(null)}
 			clickedNode={props.clickedNode}
@@ -289,6 +291,7 @@ const DynamicGraph = (props: {
 			handleNodeRightClick={handleNodeRightClick}
 			width={width}
 			height={height}
+			showSubstrates={props.showSubstrates}
 			setHoveredNode={setHoveredNode}
 			onNodeHoverOff={() => handleNodeRightClick(null)}
 			hoveredNode={hoveredNode}

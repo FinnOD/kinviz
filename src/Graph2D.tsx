@@ -14,6 +14,7 @@ export default function Graph2D(props: {
 	onNodeHoverOff: () => void;
 	width: number;
 	height: number;
+	showSubstrates: boolean;
 	setHoveredNode: any; //(node: NodeInput | null) => void;
 	hoveredNode: NodeInput | null;
 	setHoveredLink: any; //(link: LinkInput | null) => void;
@@ -41,7 +42,10 @@ export default function Graph2D(props: {
 				if (previousNode && !node) props.onNodeHoverOff(); //node was just hovered off
 			}}
 			nodeColor={(n: any) => (n === props.hoveredNode ? "#FF964D" : "#F0B648")}
-			nodeVisibility={(n: any ) => props.G.getNodeAttribute(n.id, 'subgraphVis') ?? false}
+			nodeVisibility={(n: any) =>
+				(n.isKinase || props.showSubstrates) &&
+				(props.G.getNodeAttribute(n.id, "subgraphVis") ?? false)
+			}
 			//
 			// Link props
 			linkLabel={(l: any) =>
@@ -75,7 +79,10 @@ export default function Graph2D(props: {
 			}}
 			linkVisibility={(l: any) => {
 				let link = props.G.getEdgeAttributes(l.key);
-				let canVis = (link.source !== link.target || props.showSelfLoops) && (props.G.getEdgeAttribute(l.key, 'subgraphVis') ?? false);
+				let canVis =
+					(l.target.isKinase || props.showSubstrates) &&
+					(link.source !== link.target || props.showSelfLoops) &&
+					(props.G.getEdgeAttribute(l.key, "subgraphVis") ?? false);
 				if (props.curveAmount > 0) return canVis;
 				return (link.isFirstLink || link.source === link.target) && canVis;
 			}}

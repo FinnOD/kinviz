@@ -37,7 +37,7 @@
         {
             "desc": "Protein kinase - Tyr (non-receptor), TK group, Src family",
             "id": "P07947",
-            "isKinase": true,
+            "isKinase": false,
             "name": "YES1",
             "type": "Kinase"
         },

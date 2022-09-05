@@ -16,6 +16,7 @@ export default function Graph3D(props: {
 	clickedNode: NodeObject | null;
 	width: number;
 	height: number;
+	showSubstrates: boolean;
 	setHoveredNode: any; //(node: NodeInput | null) => void;
 	hoveredNode: NodeInput | null;
 	setHoveredLink: any; //(link: LinkInput | null) => void;
@@ -68,14 +69,17 @@ export default function Graph3D(props: {
 			onNodeClick={handleNodeClick}
 			onNodeRightClick={props.handleNodeRightClick}
 			onNodeHover={(node: NodeObject | null, previousNode: NodeObject | null) => {
-				
 				if (previousNode && !node) props.onNodeHoverOff(); //node was just hovered off
 				if (!props.searchFocused) props.setHoveredNode(node);
 			}}
-			nodeColor={(n: any) =>
-				n === props.hoveredNode || n === lastClickedNode ? "#FF964D" : "#F0B648"
+			nodeAutoColorBy={(n: any) => n.isKinase ? "Kinase" : n.type}
+			// nodeColor={(n: any) =>
+			// 	n === props.hoveredNode || n === lastClickedNode ? "#FF964D" : "#F0B648"
+			// }
+			nodeVisibility={(n: any) =>
+				(n.isKinase || props.showSubstrates) &&
+				(props.G.getNodeAttribute(n.id, "subgraphVis") ?? false)
 			}
-			nodeVisibility={(n: any) => props.G.getNodeAttribute(n.id, "subgraphVis") ?? false}
 			//
 			// Link props
 			linkLabel={(l: any) =>
@@ -117,6 +121,7 @@ export default function Graph3D(props: {
 			linkVisibility={(l: any) => {
 				let link = props.G?.getEdgeAttributes(l.key)!;
 				let canVis =
+					(l.target.isKinase || props.showSubstrates) &&
 					(link.source !== link.target || props.showSelfLoops) &&
 					(props.G.getEdgeAttribute(l.key, "subgraphVis") ?? false);
 				if (props.curveAmount > 0) return canVis;

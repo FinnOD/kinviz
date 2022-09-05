@@ -19,7 +19,6 @@ function searchGNames(graphData: GraphData, term: string): Array<NodeObject> {
 
 	const qs = new QuickScore(graphData.nodes, ["name"]);
 	const result = qs.search(term);
-	console.log(result);
 
 	return result.map((o) => o.item);
 }

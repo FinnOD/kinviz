@@ -65,6 +65,11 @@ function App() {
 		setShowSelfLoops(checked);
 	};
 
+	const [showSubstrates, setShowSubstrates] = useState(true);
+	const onShowSubstratesChange = (checked: boolean) => {
+		setShowSubstrates(checked);
+	};
+
 	const [is3D, setIs3D] = useState(true);
 	const on3DChange = (checked: boolean) => {
 		setIs3D(checked);
@@ -82,7 +87,7 @@ function App() {
 	const [clickedNode, setClickedNode] = useState<NodeObject | null>(null);
 	const [searchFocused, setSearchFocused] = useState(false);
 	//Really sorry about this. Couldn't figure out how to clear searchbar on click out using useImpertiveHandle.
-	const [clearBar, setClearBar] = useState(false); 
+	const [clearBar, setClearBar] = useState(false);
 
 	return (
 		<div className="App">
@@ -118,6 +123,7 @@ function App() {
 						curveAmount={curveAmount}
 						fcData={fcData}
 						is3D={is3D}
+						showSubstrates={showSubstrates}
 						change3D={on3DChange}
 						clickedNode={clickedNode}
 						searchFocused={searchFocused}
@@ -167,6 +173,14 @@ function App() {
 					<Switch
 						defaultChecked
 						onChange={onSelfLoopsChange}
+						style={{ float: "right" }}
+					/>
+				</p>
+				<p>
+					Show substrates
+					<Switch
+						defaultChecked
+						onChange={onShowSubstratesChange}
 						style={{ float: "right" }}
 					/>
 				</p>
