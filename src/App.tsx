@@ -195,6 +195,7 @@ function App() {
 				Display Dimension
 				<Switch
 					defaultChecked
+					unCheckedChildren="2D"
 					checkedChildren="3D"
 					checked={is3D}
 					onChange={on3DChange}
