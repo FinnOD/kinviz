@@ -1,0 +1,28 @@
+{
+	"background": "#303a3e",
+	"nodes": {
+		"kinase": "#ffb270",
+        "substrate": "#a2e57b",
+		"selected": "#ff6d7e",
+		"byType": {
+            "Kinase": "",
+			"Ser/Thr/Tyr Kinase": "",
+			"Tyr Kinase": "",
+            "Ser/Thr Kinase": "",
+			"Unclassified": "",
+			"Transcription": "#baa0f8",
+            "Regulatory": "#a2e57b",
+			"Structural": "#ffed72",
+			"Metabolic": "",
+			"Phosphatase": "",
+			"Adapter/scaffold": "",
+			"Cytosketetal": ""
+		}
+	},
+	"links": {
+		"default": "#f2fffc",
+		"selected": "#ff6d7e",
+		"FCup": "#ffb270",
+		"FCdown": "#7cd5f1"
+	}
+}

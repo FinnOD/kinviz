@@ -10,6 +10,7 @@ import Searchbox from "./Searchbox";
 //data
 import networkKinasesTiny from "./data/base-networks/networkKinasesTiny.json";
 import defaultColorScheme from "./data/color-schemes/default.json";
+import monokaiColorScheme from "./data/color-schemes/monokai.json";
 import defaultLightColorScheme from "./data/color-schemes/default light.json";
 import colorfulColorScheme from "./data/color-schemes/colorful.json";
 import { NodeObject } from "react-force-graph-3d";
@@ -75,6 +76,7 @@ function App() {
 
 	const [colorSchemes, setColorSchemes] = useState<Record<string, ColorScheme>>({
 		"Default": imputeColorScheme(defaultColorScheme),
+		"Monokai": imputeColorScheme(monokaiColorScheme),
 		"Default - Light": imputeColorScheme(defaultLightColorScheme),
 		"Colourful": imputeColorScheme(colorfulColorScheme)
 	});
