@@ -38,25 +38,37 @@ function idPair(attr: any): [string, string] {
 	return [source, target];
 }
 
-function calculateCurveRotVis(G: MultiDirectedGraph): MultiDirectedGraph {
-	function linkID(attr: any): string {
-		let sorted = idPair(attr).sort();
-		return "".concat(sorted[0], "_", sorted[1]);
-	}
+function calculateGraphFromData(graphData: GraphData): MultiDirectedGraph {
+	let G: MultiDirectedGraph = dataGraphToGraphology(graphData);
 
 	const collator = new Intl.Collator("en", {
 		numeric: true,
 		sensitivity: "base",
 	});
 
-	let allLinks = G.mapEdges((edge, attr) => linkID(attr));
+	let beenTo: Array<string> = [];
 
-	let i = 0;
-	G.updateEachEdgeAttributes((edge, attr) => {
-		const [source, target] = idPair(attr);
+	G.forEachNode((node) => {
+		G.forEachNeighbor(node, (neighbor) => {
+			if (beenTo.includes(neighbor)) return;
+
+			let edgeCount = 0;
+			G.someEdge(node, neighbor, (edge) => {
+				G.setEdgeAttribute(edge, "multiNumber", edgeCount);
+				edgeCount++;
+			});
+			G.someEdge(node, neighbor, (edge) => {
+				G.setEdgeAttribute(edge, "multiTotal", edgeCount);
+			});
+		});
+
+		beenTo.push(node);
+	});
+
+	G.updateEachEdgeAttributes((edge, attr, source, target) => {
 		const isAntiAlphabetical = collator.compare(source, target);
-		let numMatches = allLinks.filter((x: string) => x === linkID(attr)).length;
-		let numBefore = allLinks.slice(0, i).filter((x: string) => x === linkID(attr)).length;
+		const numMatches: number = attr.multiTotal;
+		const numBefore: number = attr.multiNumber;
 
 		let curve = 0;
 		let rot = 0;
@@ -74,7 +86,6 @@ function calculateCurveRotVis(G: MultiDirectedGraph): MultiDirectedGraph {
 			curve = 0.5;
 		}
 
-		i += 1;
 		return { curve: curve, rotation: rot, isFirstLink: numBefore === 0, ...attr };
 	});
 
@@ -146,7 +157,10 @@ function addFCtoG(G: MultiDirectedGraph, fcData: FCData | undefined): MultiDirec
 	}
 }
 
-function calculateNeighbourVisibility(G: MultiDirectedGraph, subgraphNode: NodeInput | null): MultiDirectedGraph {
+function calculateNeighbourVisibility(
+	G: MultiDirectedGraph,
+	subgraphNode: NodeInput | null
+): MultiDirectedGraph {
 	G.updateEachEdgeAttributes((edge, attr) => {
 		attr.subgraphVis = true;
 		return attr;
@@ -157,15 +171,14 @@ function calculateNeighbourVisibility(G: MultiDirectedGraph, subgraphNode: NodeI
 		return attr;
 	});
 
-	if(subgraphNode !== null){
-
+	if (subgraphNode !== null) {
 		let neighbours: Array<string> = [];
-		G.forEachNeighbor(subgraphNode.id, function(neighbor, attributes) {
+		G.forEachNeighbor(subgraphNode.id, function (neighbor, attributes) {
 			neighbours.push(neighbor);
 		});
-		
+
 		G.updateEachEdgeAttributes((edge, attr) => {
-			attr.subgraphVis = idPair(attr).filter(e => neighbours.includes(e)).length === 2;
+			attr.subgraphVis = idPair(attr).filter((e) => neighbours.includes(e)).length === 2;
 			return attr;
 		});
 
@@ -196,7 +209,7 @@ const DynamicGraph = (props: {
 	//compute graphData to graphology Graph and set default state to run only first render
 	const [graphMix, updateGraphMix] = useState<{ graphData: GraphData; G: MultiDirectedGraph }>(
 		() => {
-			const newG = calculateCurveRotVis(dataGraphToGraphology(props.graphData).copy());
+			const newG = calculateGraphFromData(props.graphData);
 			const newGSubVis = calculateNeighbourVisibility(newG, null);
 			const newGWithFC = addFCtoG(newGSubVis, props.fcData);
 			return { graphData: props.graphData, G: newGWithFC };
@@ -206,7 +219,7 @@ const DynamicGraph = (props: {
 		//Generate Graphology representation and layout properties
 		setSubgraphNode(null);
 		props.change3D(true);
-		let newG = calculateCurveRotVis(dataGraphToGraphology(props.graphData).copy());
+		let newG = calculateGraphFromData(props.graphData);
 		let newGSubVis = calculateNeighbourVisibility(newG, null);
 		// update the fcLookup for the new dataset
 		let newGWithFC = addFCtoG(newGSubVis, props.fcData);
@@ -226,8 +239,6 @@ const DynamicGraph = (props: {
 
 	const [hoveredNode, setHoveredNode] = useState<NodeInput | null>(null);
 	const [hoveredLink, setHoveredLink] = useState<LinkInput | null>(null);
-	// useEffect(() => {
-	// }, [props.clickedNode])
 
 	const [rightClickedNode, setRightClickedNode] = useState<NodeInput | null>(null);
 	const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -248,14 +259,11 @@ const DynamicGraph = (props: {
 	useEffect(() => {
 		let subgraphVisibleG = calculateNeighbourVisibility(graphMix.G.copy(), subgraphNode);
 
-		if(subgraphNode)
-			props.change3D(false);
+		if (subgraphNode) props.change3D(false);
 
 		updateGraphMix((prevGraphMix) => {
 			return { ...prevGraphMix, G: subgraphVisibleG };
 		});
-		
-		
 	}, [subgraphNode]);
 
 	const { width, height } = useWindowSize();
